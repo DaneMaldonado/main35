@@ -1,5 +1,5 @@
 {
-    "name": "main3.5",
+    "name": "main3.5!!",
     "description": "",
     "dependencies": {
         "device": "*"
@@ -23,5 +23,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "pyprj"
+    "preferredEditor": "blocksprj"
 }

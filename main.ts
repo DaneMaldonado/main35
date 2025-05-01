@@ -1,55 +1,139 @@
-function SpawnExplorer() {
-    
-    for (let value of tiles.getTilesByType(assets.tile`
-        PlayerSpawn
-        `)) {
+function movement (character: Sprite) {
+    controller.moveSprite(character, 150, 0)
+    // Only allow horizontal movement
+    character.ay = 150
+    // Gravity strength
+    character.setFlag(SpriteFlag.StayInScreen, true)
+    controller.A.onEvent(ControllerButtonEvent.Pressed, function on_jump_pressed() {
+        if (character.isHittingTile(CollisionDirection.Bottom)) {
+            character.vy = -150
+        }
+        
+    })
+}
+function SpawnExplorer () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Explorer = sprites.create(img`
-                . . . . . . 5 . 5 . . . . . . .
-                . . . . . f 5 5 5 f f . . . . .
-                . . . . f 1 5 2 5 1 6 f . . . .
-                . . . f 1 6 6 6 6 6 1 6 f . . .
-                . . . f 6 6 f f f f 6 1 f . . .
-                . . . f 6 f f d d f f 6 f . . .
-                . . f 6 f d f d d f d f 6 f . .
-                . . f 6 f d 3 d d 3 d f 6 f . .
-                . . f 6 6 f d d d d f 6 6 f . .
-                . f 6 6 f 3 f f f f 3 f 6 6 f .
-                . . f f d 3 5 3 3 5 3 d f f . .
-                . . f d d f 3 5 5 3 f d d f . .
-                . . . f f 3 3 3 3 3 3 f f . . .
-                . . . f 3 3 5 3 3 5 3 3 f . . .
-                . . . f f f f f f f f f f . . .
-                . . . . . f f . . f f . . . . .
-                `, SpriteKind.Player)
+            . . . . . f f 4 4 f f . . . . . 
+            . . . . f 5 4 5 5 4 5 f . . . . 
+            . . . f e 4 5 5 5 5 4 e f . . . 
+            . . f b 3 e 4 4 4 4 e 3 b f . . 
+            . . f 3 3 3 3 3 3 3 3 3 3 f . . 
+            . f 3 3 e b 3 e e 3 b e 3 3 f . 
+            . f 3 3 f f e e e e f f 3 3 f . 
+            . f b b f b f e e f b f b b f . 
+            . f b b e 1 f 4 4 f 1 e b b f . 
+            f f b b f 4 4 4 4 4 4 f b b f f 
+            f b b f f f e e e e f f f b b f 
+            . f e e f b d d d d b f e e f . 
+            . . e 4 c d d d d d d c 4 e . . 
+            . . e f b d b d b d b b f e . . 
+            . . . f f 1 d 1 d 1 d f f . . . 
+            . . . . . f f b b f f . . . . . 
+            `, SpriteKind.Player)
         tiles.placeOnTile(Explorer, value)
         scene.cameraFollowSprite(Explorer)
     }
 }
-
-function BoostFunction() {
-    
-    Boost = sprites.create(img`
-            . . . . . . . . . . . . . . . .
-            . . . . . . 6 6 6 6 . . . . . .
-            . . . . 6 6 6 5 5 6 6 6 . . . .
-            . . . 7 7 7 7 6 6 6 6 6 6 . . .
-            . . 6 7 7 7 7 8 8 8 1 1 6 6 . .
-            . . 7 7 7 7 7 8 8 8 1 1 5 6 . .
-            . 6 7 7 7 7 8 8 8 8 8 5 5 6 6 .
-            . 6 7 7 7 8 8 8 6 6 6 6 5 6 6 .
-            . 6 6 7 7 8 8 6 6 6 6 6 6 6 6 .
-            . 6 8 7 7 8 8 6 6 6 6 6 6 6 6 .
-            . . 6 8 7 7 8 6 6 6 6 6 8 6 . .
-            . . 6 8 8 7 8 8 6 6 6 8 6 6 . .
-            . . . 6 8 8 8 8 8 8 8 8 6 . . .
-            . . . . 6 6 8 8 8 8 6 6 . . . .
-            . . . . . . 6 6 6 6 . . . . . .
-            . . . . . . . . . . . . . . . .
+function spawn_mermaid () {
+    for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
+        Mermaid = sprites.create(img`
+            . . . . . . 5 . 5 . . . . . . . 
+            . . . . . f 5 5 5 f f . . . . . 
+            . . . . f 1 5 2 5 1 6 f . . . . 
+            . . . f 1 6 6 6 6 6 1 6 f . . . 
+            . . . f 6 6 f f f f 6 1 f . . . 
+            . . . f 6 f f d d f f 6 f . . . 
+            . . f 6 f d f d d f d f 6 f . . 
+            . . f 6 f d 3 d d 3 d f 6 f . . 
+            . . f 6 6 f d d d d f 6 6 f . . 
+            . f 6 6 f 3 f f f f 3 f 6 6 f . 
+            . . f f d 3 5 3 3 5 3 d f f . . 
+            . . f d d f 3 5 5 3 f d d f . . 
+            . . . f f 3 3 3 3 3 3 f f . . . 
+            . . . f 3 3 5 3 3 5 3 3 f . . . 
+            . . . f f f f f f f f f f . . . 
+            . . . . . f f . . f f . . . . . 
             `, SpriteKind.Player)
+        tiles.placeOnTile(Explorer, value2)
+        scene.cameraFollowSprite(Explorer)
+    }
 }
-
-let Boost : Sprite = null
-let Explorer : Sprite = null
+function spawn_shark () {
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile`)) {
+        Shark = sprites.create(img`
+            .............ccfff..............
+            ...........ccddbcf..............
+            ..........ccddbbf...............
+            ..........fccbbcf...............
+            .....fffffccccccff.........ccc..
+            ...ffbbbbbbbcbbbbcfff....ccbbc..
+            ..fbbbbbbbbcbcbbbbcccff.cdbbc...
+            ffbbbbbbffbbcbcbbbcccccfcdbbf...
+            fbcbbb11ff1bcbbbbbcccccffbbf....
+            fbbb11111111bbbbbcccccccbbcf....
+            .fb11133cc11bbbbcccccccccccf....
+            ..fccc31c111bbbcccccbdbffbbcf...
+            ...fc13c111cbbbfcddddcc..fbbf...
+            ....fccc111fbdbbccdcc.....fbbf..
+            ........ccccfcdbbcc........fff..
+            .............fffff..............
+            `, SpriteKind.Player)
+        tiles.placeOnTile(Explorer, value3)
+        scene.cameraFollowSprite(Explorer)
+    }
+}
+let Shark: Sprite = null
+let Mermaid: Sprite = null
+let Explorer: Sprite = null
+let musicChoice = ""
+let selectedAvatar = ""
 tiles.setCurrentTilemap(tilemap`MainMap`)
-SpawnExplorer()
-BoostFunction()
+// Declare globally
+// Level 0 - Introduction
+game.splash("Welcome to Underwater Trail!")
+let playerName = game.askForString("What is your name?")
+game.splash("Perfect, " + playerName)
+// Avatar Selection
+let avatarChoice = game.askForNumber("Perfect " + playerName + `
+    , select an avatar:
+    1. Explorer
+    2. Mermaid
+    3. Shark
+    `)
+// Spawn selected avatar
+if (avatarChoice == 1) {
+    selectedAvatar = "Explorer"
+    SpawnExplorer()
+} else if (avatarChoice == 2) {
+    selectedAvatar = "Mermaid"
+    spawn_mermaid()
+} else {
+    selectedAvatar = "Shark"
+    spawn_shark()
+}
+// Music Selection
+let musicChoiceNum = game.askForNumber("Okay " + playerName + `
+    , choose music:
+    1. Sitka
+    2. Paris
+    3. Tokyo
+    `)
+if (musicChoiceNum == 1) {
+    musicChoice = "Sitka"
+    music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
+} else if (musicChoiceNum == 2) {
+    musicChoice = "Paris"
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
+} else {
+    musicChoice = "Tokyo"
+    music.play(music.stringPlayable("G A G B A G F E ", 120), music.PlaybackMode.LoopingInBackground)
+}
+// Apply to selected avatar
+if (selectedAvatar == "Explorer") {
+    movement(Explorer)
+} else if (selectedAvatar == "Mermaid") {
+    movement(Mermaid)
+} else if (selectedAvatar == "Shark") {
+    movement(Mermaid)
+}
