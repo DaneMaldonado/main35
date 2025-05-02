@@ -23,10 +23,8 @@ function spawn_explorer () {
     }
 }
 function movement (character: Sprite) {
-    controller.moveSprite(character, 150, 0)
-    // Only allow horizontal movement
-    character.ay = 150
-    // Gravity strength
+    controller.moveSprite(character, 100, 0)
+    character.ay = 210
     character.setFlag(SpriteFlag.StayInScreen, true)
     controller.A.onEvent(ControllerButtonEvent.Pressed, function on_jump_pressed() {
         if (character.isHittingTile(CollisionDirection.Bottom)) {
@@ -60,292 +58,468 @@ function spawn_mermaid () {
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    animation.runImageAnimation(
-    Shark,
-    [img`
-        .............ccfff..............
-        ...........ccddbcf..............
-        ..........ccddbbf...............
-        ..........fccbbcf...............
-        .....fffffccccccff.........ccc..
-        ...ffbbbbbbbcbbbbcfff....ccbbc..
-        ..fbbbbbbbbcbcbbbbcccff.cdbbc...
-        ffbbbbbbffbbcbcbbbcccccfcdbbf...
-        fbcbbb11ff1bcbbbbbcccccffbbf....
-        fbbb11111111bbbbbcccccccbbcf....
-        .fb11133cc11bbbbcccccccccccf....
-        ..fccc31c111bbbcccccbdbffbbcf...
-        ...fc13c111cbbbfcddddcc..fbbf...
-        ....fccc111fbdbbccdcc.....fbbf..
-        ........ccccfcdbbcc........fff..
-        .............fffff..............
-        `],
-    500,
-    false
-    )
-    animation.runImageAnimation(
-    Explorer,
-    [img`
-        . . . f 4 4 f f f f . . . . . . 
-        . . f 4 5 5 4 5 f b f f . . . . 
-        . . f 5 5 5 5 4 e 3 3 b f . . . 
-        . . f e 4 4 4 e 3 3 3 3 b f . . 
-        . . f 3 3 3 3 3 3 3 3 3 3 f . . 
-        . f 3 3 e e 3 b e 3 3 3 3 f . . 
-        . f 3 3 e e e f f 3 3 3 3 f . . 
-        . f 3 e e e f b f b b b b f . . 
-        . . f e 4 4 f 1 e b b b b f . . 
-        . . . f 4 4 4 4 f b b b b f f . 
-        . . . f e e e f f f b b b b f . 
-        . . . f d d d e 4 4 f b b f . . 
-        . . . f d d d e 4 4 e f f . . . 
-        . . f b d b d b e e b f . . . . 
-        . . f f 1 d 1 d 1 d f f . . . . 
-        . . . . f f b b f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . f 4 4 f f f f . . . . . . 
-        . . f 4 5 5 4 5 f b f f . . . . 
-        . . f 5 5 5 5 4 e 3 3 b f . . . 
-        . . f e 4 4 4 e 3 3 3 3 b f . . 
-        . f 3 3 3 3 3 3 3 3 3 3 3 f . . 
-        . f 3 3 e e 3 b e 3 3 3 3 f . . 
-        . f 3 3 e e e f f 3 3 3 3 f . . 
-        . . f e e e f b f b b b b f f . 
-        . . . e 4 4 f 1 e b b b b b f . 
-        . . . f 4 4 4 4 f b b b b b f . 
-        . . . f d d d e 4 4 b b b f . . 
-        . . . f d d d e 4 4 f f f . . . 
-        . . f d d d b b e e b b f . . . 
-        . . f b d 1 d 1 d d b f . . . . 
-        . . . f f f b b f f f . . . . . 
-        `],
-    500,
-    false
-    )
-    animation.runImageAnimation(
-    Explorer,
-    [img`
-        . . . . . . 5 . 5 . . . . . . . 
-        . . . . . f 5 5 5 f . . . . . . 
-        . . . . f 6 2 5 5 6 f . . . . . 
-        . . . f 6 6 6 6 1 6 6 f . . . . 
-        . . . f 6 6 6 6 6 1 6 f . . . . 
-        . . . f d f d 6 6 6 1 f . . . . 
-        . . . f d f d 6 6 6 6 f f . . . 
-        . . . f d 3 d d 6 6 6 f 6 f . . 
-        . . . . f d d d f f 6 f f . . . 
-        . . . . . f f 5 3 f 6 6 6 f . . 
-        . . . . f 5 3 3 f f f f f . . . 
-        . . . . f 3 3 f d f . . . . . . 
-        . . . . . f 3 f d f . . . . . . 
-        . . . . f 3 5 3 f d f . . . . . 
-        . . . . f f 3 3 f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 5 . 5 . . . . . . 
-        . . . . . . f 5 5 5 f . . . . . 
-        . . . . . f 6 2 5 5 6 f . . . . 
-        . . . . f 6 6 6 6 1 6 6 f . . . 
-        . . . . f 6 6 6 6 6 1 6 f . . . 
-        . . . . f d f d 6 6 6 1 f . . . 
-        . . . . f d f d 6 6 6 6 f f . . 
-        . . . . f d 3 d d 6 6 6 f 6 f . 
-        . . . . . f d d d f f 6 f f . . 
-        . . . . . . f f 3 3 f f 6 6 f . 
-        . . . . . f d d d d f f f f . . 
-        . . . . . f d d d f 3 f . . . . 
-        . . . . . . f f f d 5 3 f . . . 
-        . . . . . f f f 3 3 f f . . . . 
-        . . . . . f f f f f f f . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 5 . 5 . . . . . . 
-        . . . . . . f 5 5 5 f . . . . . 
-        . . . . . f 6 2 5 5 6 f . . . . 
-        . . . . f 6 6 6 6 1 6 6 f . . . 
-        . . . . f 6 6 6 6 6 1 6 f . . . 
-        . . . . f d f d 6 6 6 1 f . . . 
-        . . . . f d f d 6 6 6 6 f f . . 
-        . . . . f d 3 d d 6 6 6 f 6 f . 
-        . . . . . f d d d f f 6 f f . . 
-        . . . . . . f f 3 3 f f 6 6 f . 
-        . . . . . f 5 3 3 d d f f f . . 
-        . . . . . f 3 3 3 f d d f . . . 
-        . . . . . . f 3 5 f f f . . . . 
-        . . . . . f 3 3 3 3 f . . . . . 
-        . . . . . . f f f f f . . . . . 
-        `],
-    500,
-    false
-    )
+    if (selectedAvatar == "Cat") {
+        animation.runImageAnimation(
+        Cat,
+        [img`
+            e e e . . . . e e e . . . . 
+            c d d c . . c d d c . . . . 
+            c b d d f f d d b c . . . . 
+            c 3 b d d b d b 3 c . . . . 
+            f b 3 d d d d 3 b f . . . . 
+            e d d d d d d d d e . . . . 
+            e d f d d d d f d e . b f b 
+            f d d f d d f d d f . f d f 
+            f b d d b b d d 2 f . f d f 
+            . f 2 2 2 2 2 2 b b f f d f 
+            . f b d d d d d d b b d b f 
+            . f d d d d d b d d f f f . 
+            . f d f f f d f f d f . . . 
+            . f f . . f f . . f f . . . 
+            `,img`
+            . . . . . . . . . . . . . . 
+            e e e . . . . e e e . . . . 
+            c d d c . . c d d c . . . . 
+            c b d d f f d d b c . . . . 
+            c 3 b d d b d b 3 c . . . . 
+            f b 3 d d d d 3 b f . . . . 
+            e d d d d d d d d e . . . . 
+            e d f d d d d f d e b f b . 
+            f d d f d d f d d f f d f . 
+            f b d d b b d d 2 b f d f . 
+            . f 2 2 2 2 2 2 d b d b f . 
+            . f d d d d d d d f f f . . 
+            . f d b d f f f d f . . . . 
+            . . f f f f . . f f . . . . 
+            `,img`
+            . . . . . . . . . . . . . . 
+            e e e . . . . e e e . . . . 
+            c d d c . . c d d c . . . . 
+            c b d d f f d d b c . . . . 
+            c 3 b d d b d b 3 c . . . . 
+            f b 3 d d d d 3 b f . . . . 
+            e d d d d d d d d e . . . . 
+            e d f d d d d f d e . b f b 
+            f d d f d d f d d f . f d f 
+            f b d d b b d d 2 b f f d f 
+            . f 2 2 2 2 2 2 d b b d b f 
+            . f d d d d d d d f f f f . 
+            . . f d b d f d f . . . . . 
+            . . . f f f f f f . . . . . 
+            `],
+        500,
+        false
+        )
+    } else if (selectedAvatar == "Mermaid") {
+        animation.runImageAnimation(
+        Mermaid,
+        [img`
+            . . . . . . 5 . 5 . . . . . . . 
+            . . . . . f 5 5 5 f . . . . . . 
+            . . . . f 6 2 5 5 6 f . . . . . 
+            . . . f 6 6 6 6 1 6 6 f . . . . 
+            . . . f 6 6 6 6 6 1 6 f . . . . 
+            . . . f d f d 6 6 6 1 f . . . . 
+            . . . f d f d 6 6 6 6 f f . . . 
+            . . . f d 3 d d 6 6 6 f 6 f . . 
+            . . . . f d d d f f 6 f f . . . 
+            . . . . . f f 5 3 f 6 6 6 f . . 
+            . . . . f 5 3 3 f f f f f . . . 
+            . . . . f 3 3 f d f . . . . . . 
+            . . . . . f 3 f d f . . . . . . 
+            . . . . f 3 5 3 f d f . . . . . 
+            . . . . f f 3 3 f f . . . . . . 
+            . . . . . . f f f . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 5 . 5 . . . . . . 
+            . . . . . . f 5 5 5 f . . . . . 
+            . . . . . f 6 2 5 5 6 f . . . . 
+            . . . . f 6 6 6 6 1 6 6 f . . . 
+            . . . . f 6 6 6 6 6 1 6 f . . . 
+            . . . . f d f d 6 6 6 1 f . . . 
+            . . . . f d f d 6 6 6 6 f f . . 
+            . . . . f d 3 d d 6 6 6 f 6 f . 
+            . . . . . f d d d f f 6 f f . . 
+            . . . . . . f f 3 3 f f 6 6 f . 
+            . . . . . f d d d d f f f f . . 
+            . . . . . f d d d f 3 f . . . . 
+            . . . . . . f f f d 5 3 f . . . 
+            . . . . . f f f 3 3 f f . . . . 
+            . . . . . f f f f f f f . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 5 . 5 . . . . . . 
+            . . . . . . f 5 5 5 f . . . . . 
+            . . . . . f 6 2 5 5 6 f . . . . 
+            . . . . f 6 6 6 6 1 6 6 f . . . 
+            . . . . f 6 6 6 6 6 1 6 f . . . 
+            . . . . f d f d 6 6 6 1 f . . . 
+            . . . . f d f d 6 6 6 6 f f . . 
+            . . . . f d 3 d d 6 6 6 f 6 f . 
+            . . . . . f d d d f f 6 f f . . 
+            . . . . . . f f 3 3 f f 6 6 f . 
+            . . . . . f 5 3 3 d d f f f . . 
+            . . . . . f 3 3 3 f d d f . . . 
+            . . . . . . f 3 5 f f f . . . . 
+            . . . . . f 3 3 3 3 f . . . . . 
+            . . . . . . f f f f f . . . . . 
+            `],
+        500,
+        false
+        )
+    } else if (selectedAvatar == "Explorer") {
+        animation.runImageAnimation(
+        Explorer,
+        [img`
+            . . . f 4 4 f f f f . . . . . . 
+            . . f 4 5 5 4 5 f b f f . . . . 
+            . . f 5 5 5 5 4 e 3 3 b f . . . 
+            . . f e 4 4 4 e 3 3 3 3 b f . . 
+            . . f 3 3 3 3 3 3 3 3 3 3 f . . 
+            . f 3 3 e e 3 b e 3 3 3 3 f . . 
+            . f 3 3 e e e f f 3 3 3 3 f . . 
+            . f 3 e e e f b f b b b b f . . 
+            . . f e 4 4 f 1 e b b b b f . . 
+            . . . f 4 4 4 4 f b b b b f f . 
+            . . . f e e e f f f b b b b f . 
+            . . . f d d d e 4 4 f b b f . . 
+            . . . f d d d e 4 4 e f f . . . 
+            . . f b d b d b e e b f . . . . 
+            . . f f 1 d 1 d 1 d f f . . . . 
+            . . . . f f b b f f . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . f 4 4 f f f f . . . . . . 
+            . . f 4 5 5 4 5 f b f f . . . . 
+            . . f 5 5 5 5 4 e 3 3 b f . . . 
+            . . f e 4 4 4 e 3 3 3 3 b f . . 
+            . f 3 3 3 3 3 3 3 3 3 3 3 f . . 
+            . f 3 3 e e 3 b e 3 3 3 3 f . . 
+            . f 3 3 e e e f f 3 3 3 3 f . . 
+            . . f e e e f b f b b b b f f . 
+            . . . e 4 4 f 1 e b b b b b f . 
+            . . . f 4 4 4 4 f b b b b b f . 
+            . . . f d d d e 4 4 b b b f . . 
+            . . . f d d d e 4 4 f f f . . . 
+            . . f d d d b b e e b b f . . . 
+            . . f b d 1 d 1 d d b f . . . . 
+            . . . f f f b b f f f . . . . . 
+            `],
+        500,
+        false
+        )
+    }
 })
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    animation.runImageAnimation(
-    Shark,
-    [img`
-        ..............fffcc.............
-        ..............fcbddcc...........
-        ...............fbbddcc..........
-        ...............fcbbccf..........
-        ..ccc.........ffccccccfffff.....
-        ..cbbcc....fffcbbbbcbbbbbbbff...
-        ...cbbdc.ffcccbbbbcbcbbbbbbbbf..
-        ...fbbdcfcccccbbbcbcbbffbbbbbbff
-        ....fbbffcccccbbbbbcb1ff11bbbcbf
-        ....fcbbcccccccbbbbb11111111bbbf
-        ....fcccccccccccbbbb11cc33111bf.
-        ...fcbbffbdbcccccbbb111c13cccf..
-        ...fbbf..ccddddcfbbbc111c31cf...
-        ..fbbf.....ccdccbbdbf111cccf....
-        ..fff........ccbbdcfcccc........
-        ..............fffff.............
-        `],
-    500,
-    false
-    )
-    animation.runImageAnimation(
-    Explorer,
-    [img`
-        . . . . . . f f f f 4 4 f . . . 
-        . . . . f f b f 5 4 5 5 4 f . . 
-        . . . f b 3 3 e 4 5 5 5 5 f . . 
-        . . f b 3 3 3 3 e 4 4 4 e f . . 
-        . . f 3 3 3 3 3 3 3 3 3 3 f . . 
-        . . f 3 3 3 3 e b 3 e e 3 3 f . 
-        . . f 3 3 3 3 f f e e e 3 3 f . 
-        . . f b b b b f b f e e e 3 f . 
-        . . f b b b b e 1 f 4 4 e f . . 
-        . f f b b b b f 4 4 4 4 f . . . 
-        . f b b b b f f f e e e f . . . 
-        . . f b b f 4 4 e d d d f . . . 
-        . . . f f e 4 4 e d d d f . . . 
-        . . . . f b e e b d b d b f . . 
-        . . . . f f d 1 d 1 d 1 f f . . 
-        . . . . . . f f b b f f . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f 4 4 f . . . 
-        . . . . f f b f 5 4 5 5 4 f . . 
-        . . . f b 3 3 e 4 5 5 5 5 f . . 
-        . . f b 3 3 3 3 e 4 4 4 e f . . 
-        . . f 3 3 3 3 3 3 3 3 3 3 3 f . 
-        . . f 3 3 3 3 e b 3 e e 3 3 f . 
-        . . f 3 3 3 3 f f e e e 3 3 f . 
-        . f f b b b b f b f e e e f . . 
-        . f b b b b b e 1 f 4 4 e . . . 
-        . f b b b b b f 4 4 4 4 f . . . 
-        . . f b b b 4 4 e d d d f . . . 
-        . . . f f f 4 4 e d d d f . . . 
-        . . . f b b e e b b d d d f . . 
-        . . . . f b d d 1 d 1 d b f . . 
-        . . . . . f f f b b f f f . . . 
-        `],
-    500,
-    false
-    )
-    animation.runImageAnimation(
-    Explorer,
-    [img`
-        . . . . . . . 5 . 5 . . . . . . 
-        . . . . . . f 5 5 5 f . . . . . 
-        . . . . . f 6 5 5 2 6 f . . . . 
-        . . . . f 6 6 1 6 6 6 6 f . . . 
-        . . . . f 6 1 6 6 6 6 6 f . . . 
-        . . . . f 1 6 6 6 d f d f . . . 
-        . . . f f 6 6 6 6 d f d f . . . 
-        . . f 6 f 6 6 6 d d 3 d f . . . 
-        . . . f f 6 f f d d d f . . . . 
-        . . f 6 6 6 f 3 5 f f . . . . . 
-        . . . f f f f f 3 3 5 f . . . . 
-        . . . . . . f d f 3 3 f . . . . 
-        . . . . . . f d f 3 f . . . . . 
-        . . . . . f d f 3 5 3 f . . . . 
-        . . . . . . f f 3 3 f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 5 . 5 . . . . . . . 
-        . . . . . f 5 5 5 f . . . . . . 
-        . . . . f 6 5 5 2 6 f . . . . . 
-        . . . f 6 6 1 6 6 6 6 f . . . . 
-        . . . f 6 1 6 6 6 6 6 f . . . . 
-        . . . f 1 6 6 6 d f d f . . . . 
-        . . f f 6 6 6 6 d f d f . . . . 
-        . f 6 f 6 6 6 d d 3 d f . . . . 
-        . . f f 6 f f d d d f . . . . . 
-        . f 6 6 f f 3 3 f f . . . . . . 
-        . . f f f f d d d d f . . . . . 
-        . . . . f 3 f d d d f . . . . . 
-        . . . f 3 5 d f f f . . . . . . 
-        . . . . f f 3 3 f f f . . . . . 
-        . . . . f f f f f f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 5 . 5 . . . . . . . 
-        . . . . . f 5 5 5 f . . . . . . 
-        . . . . f 6 5 5 2 6 f . . . . . 
-        . . . f 6 6 1 6 6 6 6 f . . . . 
-        . . . f 6 1 6 6 6 6 6 f . . . . 
-        . . . f 1 6 6 6 d f d f . . . . 
-        . . f f 6 6 6 6 d f d f . . . . 
-        . f 6 f 6 6 6 d d 3 d f . . . . 
-        . . f f 6 f f d d d f . . . . . 
-        . f 6 6 f f 3 3 f f . . . . . . 
-        . . f f f d d 3 3 5 f . . . . . 
-        . . . f d d f 3 3 3 f . . . . . 
-        . . . . f f f 5 3 f . . . . . . 
-        . . . . . f 3 3 3 3 f . . . . . 
-        . . . . . f f f f f . . . . . . 
-        `],
-    500,
-    false
-    )
-})
-function spawn_shark () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
-        Shark = sprites.create(img`
-            ..............fffcc.............
-            ..............fcbddcc...........
-            ...............fbbddcc..........
-            ...............fcbbccf..........
-            ..ccc.........ffccccccfffff.....
-            ..cbbcc....fffcbbbbcbbbbbbbff...
-            ...cbbdc.ffcccbbbbcbcbbbbbbbbf..
-            ...fbbdcfcccccbbbcbcbbffbbbbbbff
-            ....fbbffcccccbbbbbcb1ff11bbbcbf
-            ....fcbbcccccccbbbbb11111111bbbf
-            ....fcccccccccccbbbb11cc33111bf.
-            ...fcbbffbdbcccccbbb111c13cccf..
-            ...fbbf..ccddddcfbbbc111c31cf...
-            ..fbbf.....ccdccbbdbf111cccf....
-            ..fff........ccbbdcfcccc........
-            ..............fffff.............
+function spawn_cat () {
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile`)) {
+        Cat = sprites.create(img`
+            e e e . . . . e e e . . . . 
+            c d d c . . c d d c . . . . 
+            c b d d f f d d b c . . . . 
+            c 3 b d d b d b 3 c . . . . 
+            f b 3 d d d d 3 b f . . . . 
+            e d d d d d d d d e . . . . 
+            e d f d d d d f d e . b f b 
+            f d d f d d f d d f . f d f 
+            f b d d b b d d 2 f . f d f 
+            . f 2 2 2 2 2 2 b b f f d f 
+            . f b d d d d d d b b d b f 
+            . f d d d d d b d d f f f . 
+            . f d f f f d f f d f . . . 
+            . f f . . f f . . f f . . . 
             `, SpriteKind.Player)
-        tiles.placeOnTile(Shark, value)
-        scene.cameraFollowSprite(Shark)
+        tiles.placeOnTile(Cat, value3)
+        scene.cameraFollowSprite(Cat)
     }
 }
-let Shark: Sprite = null
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (selectedAvatar == "Cat") {
+        animation.runImageAnimation(
+        Cat,
+        [img`
+            . . . . e e e . . . . e e e 
+            . . . . c d d c . . c d d c 
+            . . . . c b d d f f d d b c 
+            . . . . c 3 b d b d d b 3 c 
+            . . . . f b 3 d d d d 3 b f 
+            . . . . e d d d d d d d d e 
+            b f b . e d f d d d d f d e 
+            f d f . f d d f d d f d d f 
+            f d f . f 2 d d b b d d b f 
+            f d f f b b 2 2 2 2 2 2 f . 
+            f b d b b d d d d d d b f . 
+            . f f f d d b d d d d d f . 
+            . . . f d f f d f f f d f . 
+            . . . f f . . f f . . f f . 
+            `,img`
+            . . . . . . . . . . . . . . 
+            . . . . e e e . . . . e e e 
+            . . . . c d d c . . c d d c 
+            . . . . c b d d f f d d b c 
+            . . . . c 3 b d b d d b 3 c 
+            . . . . f b 3 d d d d 3 b f 
+            . . . . e d d d d d d d d e 
+            . b f b e d f d d d d f d e 
+            . f d f f d d f d d f d d f 
+            . f d f b 2 d d b b d d b f 
+            . f b d b d 2 2 2 2 2 2 f . 
+            . . f f f d d d d d d d f . 
+            . . . . f d f f f d b d f . 
+            . . . . f f . . f f f f . . 
+            `,img`
+            . . . . . . . . . . . . . . 
+            . . . . e e e . . . . e e e 
+            . . . . c d d c . . c d d c 
+            . . . . c b d d f f d d b c 
+            . . . . c 3 b d b d d b 3 c 
+            . . . . f b 3 d d d d 3 b f 
+            . . . . e d d d d d d d d e 
+            b f b . e d f d d d d f d e 
+            f d f . f d d f d d f d d f 
+            f d f f b 2 d d b b d d b f 
+            f b d b b d 2 2 2 2 2 2 f . 
+            . f f f f d d d d d d d f . 
+            . . . . . f d f d b d f . . 
+            . . . . . f f f f f f . . . 
+            `],
+        500,
+        false
+        )
+    } else if (selectedAvatar == "Mermaid") {
+        animation.runImageAnimation(
+        Mermaid,
+        [img`
+            . . . . . . . 5 . 5 . . . . . . 
+            . . . . . . f 5 5 5 f . . . . . 
+            . . . . . f 6 5 5 2 6 f . . . . 
+            . . . . f 6 6 1 6 6 6 6 f . . . 
+            . . . . f 6 1 6 6 6 6 6 f . . . 
+            . . . . f 1 6 6 6 d f d f . . . 
+            . . . f f 6 6 6 6 d f d f . . . 
+            . . f 6 f 6 6 6 d d 3 d f . . . 
+            . . . f f 6 f f d d d f . . . . 
+            . . f 6 6 6 f 3 5 f f . . . . . 
+            . . . f f f f f 3 3 5 f . . . . 
+            . . . . . . f d f 3 3 f . . . . 
+            . . . . . . f d f 3 f . . . . . 
+            . . . . . f d f 3 5 3 f . . . . 
+            . . . . . . f f 3 3 f f . . . . 
+            . . . . . . . f f f . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 5 . 5 . . . . . . . 
+            . . . . . f 5 5 5 f . . . . . . 
+            . . . . f 6 5 5 2 6 f . . . . . 
+            . . . f 6 6 1 6 6 6 6 f . . . . 
+            . . . f 6 1 6 6 6 6 6 f . . . . 
+            . . . f 1 6 6 6 d f d f . . . . 
+            . . f f 6 6 6 6 d f d f . . . . 
+            . f 6 f 6 6 6 d d 3 d f . . . . 
+            . . f f 6 f f d d d f . . . . . 
+            . f 6 6 f f 3 3 f f . . . . . . 
+            . . f f f f d d d d f . . . . . 
+            . . . . f 3 f d d d f . . . . . 
+            . . . f 3 5 d f f f . . . . . . 
+            . . . . f f 3 3 f f f . . . . . 
+            . . . . f f f f f f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 5 . 5 . . . . . . . 
+            . . . . . f 5 5 5 f . . . . . . 
+            . . . . f 6 5 5 2 6 f . . . . . 
+            . . . f 6 6 1 6 6 6 6 f . . . . 
+            . . . f 6 1 6 6 6 6 6 f . . . . 
+            . . . f 1 6 6 6 d f d f . . . . 
+            . . f f 6 6 6 6 d f d f . . . . 
+            . f 6 f 6 6 6 d d 3 d f . . . . 
+            . . f f 6 f f d d d f . . . . . 
+            . f 6 6 f f 3 3 f f . . . . . . 
+            . . f f f d d 3 3 5 f . . . . . 
+            . . . f d d f 3 3 3 f . . . . . 
+            . . . . f f f 5 3 f . . . . . . 
+            . . . . . f 3 3 3 3 f . . . . . 
+            . . . . . f f f f f . . . . . . 
+            `],
+        500,
+        false
+        )
+    } else if (selectedAvatar == "Explorer") {
+        animation.runImageAnimation(
+        Explorer,
+        [img`
+            . . . . . . f f f f 4 4 f . . . 
+            . . . . f f b f 5 4 5 5 4 f . . 
+            . . . f b 3 3 e 4 5 5 5 5 f . . 
+            . . f b 3 3 3 3 e 4 4 4 e f . . 
+            . . f 3 3 3 3 3 3 3 3 3 3 f . . 
+            . . f 3 3 3 3 e b 3 e e 3 3 f . 
+            . . f 3 3 3 3 f f e e e 3 3 f . 
+            . . f b b b b f b f e e e 3 f . 
+            . . f b b b b e 1 f 4 4 e f . . 
+            . f f b b b b f 4 4 4 4 f . . . 
+            . f b b b b f f f e e e f . . . 
+            . . f b b f 4 4 e d d d f . . . 
+            . . . f f e 4 4 e d d d f . . . 
+            . . . . f b e e b d b d b f . . 
+            . . . . f f d 1 d 1 d 1 f f . . 
+            . . . . . . f f b b f f . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f 4 4 f . . . 
+            . . . . f f b f 5 4 5 5 4 f . . 
+            . . . f b 3 3 e 4 5 5 5 5 f . . 
+            . . f b 3 3 3 3 e 4 4 4 e f . . 
+            . . f 3 3 3 3 3 3 3 3 3 3 3 f . 
+            . . f 3 3 3 3 e b 3 e e 3 3 f . 
+            . . f 3 3 3 3 f f e e e 3 3 f . 
+            . f f b b b b f b f e e e f . . 
+            . f b b b b b e 1 f 4 4 e . . . 
+            . f b b b b b f 4 4 4 4 f . . . 
+            . . f b b b 4 4 e d d d f . . . 
+            . . . f f f 4 4 e d d d f . . . 
+            . . . f b b e e b b d d d f . . 
+            . . . . f b d d 1 d 1 d b f . . 
+            . . . . . f f f b b f f f . . . 
+            `],
+        500,
+        false
+        )
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+    animation.runImageAnimation(
+    SpeedBoost,
+    [img`
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
+        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
+        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
+        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
+        9 b b b b b 9 9 1 1 b b 3 9 9 b 
+        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
+        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
+        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
+        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
+        9 b 5 5 b b b b b b 3 9 9 3 9 9 
+        9 b b b b b b b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
+        9 9 9 9 b b b 9 9 9 b b b b 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
+        9 9 9 b b b b b b 9 9 b 9 9 9 9 
+        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
+        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
+        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
+        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
+        9 b 5 d 9 3 3 3 d d b b b b 9 9 
+        b 5 5 5 b b b b b b b 9 9 1 b 9 
+        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
+        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
+        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
+        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `],
+    150,
+    false
+    )
+})
+let Cat: Sprite = null
 let Mermaid: Sprite = null
 let Explorer: Sprite = null
 let musicChoice = ""
 let selectedAvatar = ""
+let SpeedBoost: Sprite = null
 tiles.setCurrentTilemap(tilemap`MainMap`)
-// Declare globally
-// Level 0 - Introduction
+let LightBlue = sprites.create(img`
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+    `, SpriteKind.Player)
+SpeedBoost = sprites.create(img`
+    9 9 9 9 9 b b b b b b 9 9 9 9 9 
+    9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+    9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+    9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+    9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+    b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+    b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+    b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+    b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+    b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+    b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+    9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+    9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+    9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+    9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+    9 9 9 9 9 b b b b b b 9 9 9 9 9 
+    `, SpriteKind.Food)
+tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
+for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+    tiles.placeOnTile(SpeedBoost, value)
+}
 game.splash("Welcome to Underwater Trail!")
+game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 let playerName = game.askForString("What is your name?")
 game.splash("Perfect, " + playerName)
-// Avatar Selection
 let avatarChoice = game.askForNumber("Perfect " + playerName + `
     , select an avatar:
     1. Explorer
     2. Mermaid
     3. Shark
     `)
-// Spawn selected avatar
 if (avatarChoice == 1) {
     selectedAvatar = "Explorer"
     spawn_explorer()
@@ -353,10 +527,9 @@ if (avatarChoice == 1) {
     selectedAvatar = "Mermaid"
     spawn_mermaid()
 } else {
-    selectedAvatar = "Shark"
-    spawn_shark()
+    selectedAvatar = "Cat"
+    spawn_cat()
 }
-// Music Selection
 let musicChoiceNum = game.askForNumber("Okay " + playerName + `
     , choose music:
     1. Sitka
@@ -373,11 +546,10 @@ if (musicChoiceNum == 1) {
     musicChoice = "Tokyo"
     music.play(music.stringPlayable("G A G B A G F E ", 120), music.PlaybackMode.LoopingInBackground)
 }
-// Apply to selected avatar
 if (selectedAvatar == "Explorer") {
     movement(Explorer)
 } else if (selectedAvatar == "Mermaid") {
     movement(Mermaid)
-} else if (selectedAvatar == "Shark") {
-    movement(Shark)
+} else if (selectedAvatar == "Cat") {
+    movement(Cat)
 }

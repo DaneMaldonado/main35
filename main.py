@@ -1,4 +1,4 @@
-def SpawnExplorer():
+def spawn_explorer():
     global Explorer
     for value in tiles.get_tiles_by_type(assets.tile("""
         myTile
@@ -24,12 +24,24 @@ def SpawnExplorer():
             SpriteKind.player)
         tiles.place_on_tile(Explorer, value)
         scene.camera_follow_sprite(Explorer)
+def movement(character: Sprite):
+    controller.move_sprite(character, 100, 0)
+    
+    character.ay = 210
+
+    character.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
+    
+    def on_jump_pressed():
+        if character.is_hitting_tile(CollisionDirection.BOTTOM):
+            character.vy = -150
+    controller.A.on_event(ControllerButtonEvent.PRESSED, on_jump_pressed)
+    
 def spawn_mermaid():
-    global mySprite
+    global Mermaid
     for value2 in tiles.get_tiles_by_type(assets.tile("""
-        transparency16
+        myTile
         """)):
-        mySprite = sprites.create(img("""
+        Mermaid = sprites.create(img("""
                 . . . . . . 5 . 5 . . . . . . .
                 . . . . . f 5 5 5 f f . . . . .
                 . . . . f 1 5 2 5 1 6 f . . . .
@@ -48,64 +60,372 @@ def spawn_mermaid():
                 . . . . . f f . . f f . . . . .
                 """),
             SpriteKind.player)
-        tiles.place_on_tile(Explorer, value2)
-        scene.camera_follow_sprite(Explorer)
-def spawn_shark():
-    global mySprite
+        tiles.place_on_tile(Mermaid, value2)
+        scene.camera_follow_sprite(Mermaid)
+
+def on_left_pressed():
+
+    if selectedAvatar == "Cat":
+        animation.run_image_animation(Cat,
+            [img("""
+                    e e e . . . . e e e . . . .
+                    c d d c . . c d d c . . . .
+                    c b d d f f d d b c . . . .
+                    c 3 b d d b d b 3 c . . . .
+                    f b 3 d d d d 3 b f . . . .
+                    e d d d d d d d d e . . . .
+                    e d f d d d d f d e . b f b
+                    f d d f d d f d d f . f d f
+                    f b d d b b d d 2 f . f d f
+                    . f 2 2 2 2 2 2 b b f f d f
+                    . f b d d d d d d b b d b f
+                    . f d d d d d b d d f f f .
+                    . f d f f f d f f d f . . .
+                    . f f . . f f . . f f . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . .
+                    e e e . . . . e e e . . . .
+                    c d d c . . c d d c . . . .
+                    c b d d f f d d b c . . . .
+                    c 3 b d d b d b 3 c . . . .
+                    f b 3 d d d d 3 b f . . . .
+                    e d d d d d d d d e . . . .
+                    e d f d d d d f d e b f b .
+                    f d d f d d f d d f f d f .
+                    f b d d b b d d 2 b f d f .
+                    . f 2 2 2 2 2 2 d b d b f .
+                    . f d d d d d d d f f f . .
+                    . f d b d f f f d f . . . .
+                    . . f f f f . . f f . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . .
+                    e e e . . . . e e e . . . .
+                    c d d c . . c d d c . . . .
+                    c b d d f f d d b c . . . .
+                    c 3 b d d b d b 3 c . . . .
+                    f b 3 d d d d 3 b f . . . .
+                    e d d d d d d d d e . . . .
+                    e d f d d d d f d e . b f b
+                    f d d f d d f d d f . f d f
+                    f b d d b b d d 2 b f f d f
+                    . f 2 2 2 2 2 2 d b b d b f
+                    . f d d d d d d d f f f f .
+                    . . f d b d f d f . . . . .
+                    . . . f f f f f f . . . . .
+                    """)],
+            500,
+            False)
+    elif selectedAvatar == "Mermaid":
+        animation.run_image_animation(Mermaid,
+            [img("""
+                    . . . . . . 5 . 5 . . . . . . .
+                    . . . . . f 5 5 5 f . . . . . .
+                    . . . . f 6 2 5 5 6 f . . . . .
+                    . . . f 6 6 6 6 1 6 6 f . . . .
+                    . . . f 6 6 6 6 6 1 6 f . . . .
+                    . . . f d f d 6 6 6 1 f . . . .
+                    . . . f d f d 6 6 6 6 f f . . .
+                    . . . f d 3 d d 6 6 6 f 6 f . .
+                    . . . . f d d d f f 6 f f . . .
+                    . . . . . f f 5 3 f 6 6 6 f . .
+                    . . . . f 5 3 3 f f f f f . . .
+                    . . . . f 3 3 f d f . . . . . .
+                    . . . . . f 3 f d f . . . . . .
+                    . . . . f 3 5 3 f d f . . . . .
+                    . . . . f f 3 3 f f . . . . . .
+                    . . . . . . f f f . . . . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . 5 . 5 . . . . . .
+                    . . . . . . f 5 5 5 f . . . . .
+                    . . . . . f 6 2 5 5 6 f . . . .
+                    . . . . f 6 6 6 6 1 6 6 f . . .
+                    . . . . f 6 6 6 6 6 1 6 f . . .
+                    . . . . f d f d 6 6 6 1 f . . .
+                    . . . . f d f d 6 6 6 6 f f . .
+                    . . . . f d 3 d d 6 6 6 f 6 f .
+                    . . . . . f d d d f f 6 f f . .
+                    . . . . . . f f 3 3 f f 6 6 f .
+                    . . . . . f d d d d f f f f . .
+                    . . . . . f d d d f 3 f . . . .
+                    . . . . . . f f f d 5 3 f . . .
+                    . . . . . f f f 3 3 f f . . . .
+                    . . . . . f f f f f f f . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . 5 . 5 . . . . . .
+                    . . . . . . f 5 5 5 f . . . . .
+                    . . . . . f 6 2 5 5 6 f . . . .
+                    . . . . f 6 6 6 6 1 6 6 f . . .
+                    . . . . f 6 6 6 6 6 1 6 f . . .
+                    . . . . f d f d 6 6 6 1 f . . .
+                    . . . . f d f d 6 6 6 6 f f . .
+                    . . . . f d 3 d d 6 6 6 f 6 f .
+                    . . . . . f d d d f f 6 f f . .
+                    . . . . . . f f 3 3 f f 6 6 f .
+                    . . . . . f 5 3 3 d d f f f . .
+                    . . . . . f 3 3 3 f d d f . . .
+                    . . . . . . f 3 5 f f f . . . .
+                    . . . . . f 3 3 3 3 f . . . . .
+                    . . . . . . f f f f f . . . . .
+                    """)],
+            500,
+            False)
+    elif selectedAvatar == "Explorer":
+        animation.run_image_animation(Explorer,
+            [img("""
+                    . . . f 4 4 f f f f . . . . . .
+                    . . f 4 5 5 4 5 f b f f . . . .
+                    . . f 5 5 5 5 4 e 3 3 b f . . .
+                    . . f e 4 4 4 e 3 3 3 3 b f . .
+                    . . f 3 3 3 3 3 3 3 3 3 3 f . .
+                    . f 3 3 e e 3 b e 3 3 3 3 f . .
+                    . f 3 3 e e e f f 3 3 3 3 f . .
+                    . f 3 e e e f b f b b b b f . .
+                    . . f e 4 4 f 1 e b b b b f . .
+                    . . . f 4 4 4 4 f b b b b f f .
+                    . . . f e e e f f f b b b b f .
+                    . . . f d d d e 4 4 f b b f . .
+                    . . . f d d d e 4 4 e f f . . .
+                    . . f b d b d b e e b f . . . .
+                    . . f f 1 d 1 d 1 d f f . . . .
+                    . . . . f f b b f f . . . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . f 4 4 f f f f . . . . . .
+                    . . f 4 5 5 4 5 f b f f . . . .
+                    . . f 5 5 5 5 4 e 3 3 b f . . .
+                    . . f e 4 4 4 e 3 3 3 3 b f . .
+                    . f 3 3 3 3 3 3 3 3 3 3 3 f . .
+                    . f 3 3 e e 3 b e 3 3 3 3 f . .
+                    . f 3 3 e e e f f 3 3 3 3 f . .
+                    . . f e e e f b f b b b b f f .
+                    . . . e 4 4 f 1 e b b b b b f .
+                    . . . f 4 4 4 4 f b b b b b f .
+                    . . . f d d d e 4 4 b b b f . .
+                    . . . f d d d e 4 4 f f f . . .
+                    . . f d d d b b e e b b f . . .
+                    . . f b d 1 d 1 d d b f . . . .
+                    . . . f f f b b f f f . . . . .
+                    """)],
+            500,
+            False)
+controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
+
+def spawn_cat():
+    global Cat
     for value3 in tiles.get_tiles_by_type(assets.tile("""
-        transparency16
+        myTile
         """)):
-        mySprite = sprites.create(img("""
-                .............ccfff..............
-                ...........ccddbcf..............
-                ..........ccddbbf...............
-                ..........fccbbcf...............
-                .....fffffccccccff.........ccc..
-                ...ffbbbbbbbcbbbbcfff....ccbbc..
-                ..fbbbbbbbbcbcbbbbcccff.cdbbc...
-                ffbbbbbbffbbcbcbbbcccccfcdbbf...
-                fbcbbb11ff1bcbbbbbcccccffbbf....
-                fbbb11111111bbbbbcccccccbbcf....
-                .fb11133cc11bbbbcccccccccccf....
-                ..fccc31c111bbbcccccbdbffbbcf...
-                ...fc13c111cbbbfcddddcc..fbbf...
-                ....fccc111fbdbbccdcc.....fbbf..
-                ........ccccfcdbbcc........fff..
-                .............fffff..............
+        Cat = sprites.create(img("""
+                e e e . . . . e e e . . . .
+                c d d c . . c d d c . . . .
+                c b d d f f d d b c . . . .
+                c 3 b d d b d b 3 c . . . .
+                f b 3 d d d d 3 b f . . . .
+                e d d d d d d d d e . . . .
+                e d f d d d d f d e . b f b
+                f d d f d d f d d f . f d f
+                f b d d b b d d 2 f . f d f
+                . f 2 2 2 2 2 2 b b f f d f
+                . f b d d d d d d b b d b f
+                . f d d d d d b d d f f f .
+                . f d f f f d f f d f . . .
+                . f f . . f f . . f f . . .
                 """),
             SpriteKind.player)
-        tiles.place_on_tile(Explorer, value3)
-        scene.camera_follow_sprite(Explorer)
-mySprite: Sprite = None
+        tiles.place_on_tile(Cat, value3)
+        scene.camera_follow_sprite(Cat)
+
+def on_right_pressed():
+    if selectedAvatar == "Cat":
+        animation.run_image_animation(Cat,
+            [img("""
+                    . . . . e e e . . . . e e e
+                    . . . . c d d c . . c d d c
+                    . . . . c b d d f f d d b c
+                    . . . . c 3 b d b d d b 3 c
+                    . . . . f b 3 d d d d 3 b f
+                    . . . . e d d d d d d d d e
+                    b f b . e d f d d d d f d e
+                    f d f . f d d f d d f d d f
+                    f d f . f 2 d d b b d d b f
+                    f d f f b b 2 2 2 2 2 2 f .
+                    f b d b b d d d d d d b f .
+                    . f f f d d b d d d d d f .
+                    . . . f d f f d f f f d f .
+                    . . . f f . . f f . . f f .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . .
+                    . . . . e e e . . . . e e e
+                    . . . . c d d c . . c d d c
+                    . . . . c b d d f f d d b c
+                    . . . . c 3 b d b d d b 3 c
+                    . . . . f b 3 d d d d 3 b f
+                    . . . . e d d d d d d d d e
+                    . b f b e d f d d d d f d e
+                    . f d f f d d f d d f d d f
+                    . f d f b 2 d d b b d d b f
+                    . f b d b d 2 2 2 2 2 2 f .
+                    . . f f f d d d d d d d f .
+                    . . . . f d f f f d b d f .
+                    . . . . f f . . f f f f . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . .
+                    . . . . e e e . . . . e e e
+                    . . . . c d d c . . c d d c
+                    . . . . c b d d f f d d b c
+                    . . . . c 3 b d b d d b 3 c
+                    . . . . f b 3 d d d d 3 b f
+                    . . . . e d d d d d d d d e
+                    b f b . e d f d d d d f d e
+                    f d f . f d d f d d f d d f
+                    f d f f b 2 d d b b d d b f
+                    f b d b b d 2 2 2 2 2 2 f .
+                    . f f f f d d d d d d d f .
+                    . . . . . f d f d b d f . .
+                    . . . . . f f f f f f . . .
+                    """)],
+            500,
+            False)
+    elif selectedAvatar == "Mermaid":
+        animation.run_image_animation(Mermaid,
+            [img("""
+                    . . . . . . . 5 . 5 . . . . . .
+                    . . . . . . f 5 5 5 f . . . . .
+                    . . . . . f 6 5 5 2 6 f . . . .
+                    . . . . f 6 6 1 6 6 6 6 f . . .
+                    . . . . f 6 1 6 6 6 6 6 f . . .
+                    . . . . f 1 6 6 6 d f d f . . .
+                    . . . f f 6 6 6 6 d f d f . . .
+                    . . f 6 f 6 6 6 d d 3 d f . . .
+                    . . . f f 6 f f d d d f . . . .
+                    . . f 6 6 6 f 3 5 f f . . . . .
+                    . . . f f f f f 3 3 5 f . . . .
+                    . . . . . . f d f 3 3 f . . . .
+                    . . . . . . f d f 3 f . . . . .
+                    . . . . . f d f 3 5 3 f . . . .
+                    . . . . . . f f 3 3 f f . . . .
+                    . . . . . . . f f f . . . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . 5 . 5 . . . . . . .
+                    . . . . . f 5 5 5 f . . . . . .
+                    . . . . f 6 5 5 2 6 f . . . . .
+                    . . . f 6 6 1 6 6 6 6 f . . . .
+                    . . . f 6 1 6 6 6 6 6 f . . . .
+                    . . . f 1 6 6 6 d f d f . . . .
+                    . . f f 6 6 6 6 d f d f . . . .
+                    . f 6 f 6 6 6 d d 3 d f . . . .
+                    . . f f 6 f f d d d f . . . . .
+                    . f 6 6 f f 3 3 f f . . . . . .
+                    . . f f f f d d d d f . . . . .
+                    . . . . f 3 f d d d f . . . . .
+                    . . . f 3 5 d f f f . . . . . .
+                    . . . . f f 3 3 f f f . . . . .
+                    . . . . f f f f f f f . . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . 5 . 5 . . . . . . .
+                    . . . . . f 5 5 5 f . . . . . .
+                    . . . . f 6 5 5 2 6 f . . . . .
+                    . . . f 6 6 1 6 6 6 6 f . . . .
+                    . . . f 6 1 6 6 6 6 6 f . . . .
+                    . . . f 1 6 6 6 d f d f . . . .
+                    . . f f 6 6 6 6 d f d f . . . .
+                    . f 6 f 6 6 6 d d 3 d f . . . .
+                    . . f f 6 f f d d d f . . . . .
+                    . f 6 6 f f 3 3 f f . . . . . .
+                    . . f f f d d 3 3 5 f . . . . .
+                    . . . f d d f 3 3 3 f . . . . .
+                    . . . . f f f 5 3 f . . . . . .
+                    . . . . . f 3 3 3 3 f . . . . .
+                    . . . . . f f f f f . . . . . .
+                    """)],
+            500,
+            False)
+    elif selectedAvatar == "Explorer":
+        animation.run_image_animation(Explorer,
+            [img("""
+                    . . . . . . f f f f 4 4 f . . .
+                    . . . . f f b f 5 4 5 5 4 f . .
+                    . . . f b 3 3 e 4 5 5 5 5 f . .
+                    . . f b 3 3 3 3 e 4 4 4 e f . .
+                    . . f 3 3 3 3 3 3 3 3 3 3 f . .
+                    . . f 3 3 3 3 e b 3 e e 3 3 f .
+                    . . f 3 3 3 3 f f e e e 3 3 f .
+                    . . f b b b b f b f e e e 3 f .
+                    . . f b b b b e 1 f 4 4 e f . .
+                    . f f b b b b f 4 4 4 4 f . . .
+                    . f b b b b f f f e e e f . . .
+                    . . f b b f 4 4 e d d d f . . .
+                    . . . f f e 4 4 e d d d f . . .
+                    . . . . f b e e b d b d b f . .
+                    . . . . f f d 1 d 1 d 1 f f . .
+                    . . . . . . f f b b f f . . . .
+                    """),
+                img("""
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . f f f f 4 4 f . . .
+                    . . . . f f b f 5 4 5 5 4 f . .
+                    . . . f b 3 3 e 4 5 5 5 5 f . .
+                    . . f b 3 3 3 3 e 4 4 4 e f . .
+                    . . f 3 3 3 3 3 3 3 3 3 3 3 f .
+                    . . f 3 3 3 3 e b 3 e e 3 3 f .
+                    . . f 3 3 3 3 f f e e e 3 3 f .
+                    . f f b b b b f b f e e e f . .
+                    . f b b b b b e 1 f 4 4 e . . .
+                    . f b b b b b f 4 4 4 4 f . . .
+                    . . f b b b 4 4 e d d d f . . .
+                    . . . f f f 4 4 e d d d f . . .
+                    . . . f b b e e b b d d d f . .
+                    . . . . f b d d 1 d 1 d b f . .
+                    . . . . . f f f b b f f f . . .
+                    """)],
+            500,
+            False)
+controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
+
+Cat: Sprite = None
+Mermaid: Sprite = None
 Explorer: Sprite = None
 musicChoice = ""
 selectedAvatar = ""
 tiles.set_current_tilemap(tilemap("""
     MainMap
     """))
-# Declare globally
-# Level 0 - Introduction
+
 game.splash("Welcome to Underwater Trail!")
+game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.ask_for_string("What is your name?")
 game.splash("Perfect, " + playerName)
-# Avatar Selection
+
 avatarChoice = game.ask_for_number("Perfect " + playerName + """
     , select an avatar:
     1. Explorer
     2. Mermaid
     3. Shark
     """)
-# Spawn selected avatar
+
 if avatarChoice == 1:
     selectedAvatar = "Explorer"
-    SpawnExplorer()
+    spawn_explorer()
 elif avatarChoice == 2:
     selectedAvatar = "Mermaid"
     spawn_mermaid()
 else:
-    selectedAvatar = "Shark"
-    spawn_shark()
-# Music Selection
+    selectedAvatar = "Cat"
+    spawn_cat()
+
 musicChoiceNum = game.ask_for_number("Okay " + playerName + """
     , choose music:
     1. Sitka
@@ -114,29 +434,20 @@ musicChoiceNum = game.ask_for_number("Okay " + playerName + """
     """)
 if musicChoiceNum == 1:
     musicChoice = "Sitka"
-    music.play_melody("C5 B A G A B C5 - ", 120)
+    music.play(music.string_playable("C5 B A G A B C5 - ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
 elif musicChoiceNum == 2:
     musicChoice = "Paris"
-    music.play_melody("E B C5 A B G A F ", 120)
+    music.play(music.string_playable("E B C5 A B G A F ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
 else:
     musicChoice = "Tokyo"
-    music.play_melody("G A G B A G F E ", 120)
+    music.play(music.string_playable("G A G B A G F E ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
 
-def enable_movement_and_physics(character: Sprite):
-    controller.move_sprite(character, 100, 0)  # Only allow horizontal movement
-    character.ay = 300  # Gravity strength
-    character.set_flag(SpriteFlag.STAY_IN_SCREEN, True)  # Prevent falling off screen
-
-    def on_jump_pressed():
-        if character.is_hitting_tile(CollisionDirection.BOTTOM):
-            character.vy = -150  # Jump velocity (negative goes up)
-
-    controller.A.on_event(ControllerButtonEvent.PRESSED, on_jump_pressed)
-
-# Apply to selected avatar
 if selectedAvatar == "Explorer":
-    enable_movement_and_physics(Explorer)
+    movement(Explorer)
 elif selectedAvatar == "Mermaid":
-    enable_movement_and_physics(mySprite)
-elif selectedAvatar == "Shark":
-    enable_movement_and_physics(mySprite)
+    movement(Mermaid)
+elif selectedAvatar == "Cat":
+    movement(Cat)
