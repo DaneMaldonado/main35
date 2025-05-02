@@ -2,7 +2,8 @@
     "name": "main3.5!!",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "animation": "*"
     },
     "files": [
         "main.blocks",
