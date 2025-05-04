@@ -211,6 +211,30 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
+function SpawnSpeedBoost () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+        SpeedBoost = sprites.create(img`
+            9 9 9 9 9 b b b b b b 9 9 9 9 9 
+            9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+            9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+            9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+            9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+            b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+            b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+            b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+            b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+            b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+            b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+            9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+            9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+            9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+            9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+            9 9 9 9 9 b b b b b b 9 9 9 9 9 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(SpeedBoost, value)
+    }
+    SpeedBoost.scale = 0.7
+}
 function spawn_cat () {
     for (let value3 of tiles.getTilesByType(assets.tile`myTile`)) {
         Cat = sprites.create(img`
@@ -387,7 +411,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     animation.runImageAnimation(
     SpeedBoost,
     [img`
@@ -463,12 +487,89 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
     false
     )
 })
+function spawn_coin () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
+        Coin1 = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.Player)
+        tiles.placeOnTile(Coin1, value)
+        animation.runImageAnimation(
+        Coin1,
+        [img`
+            9 9 b b b b 9 9 
+            9 b 5 5 5 5 b 9 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            9 f d d d d f 9 
+            9 9 f f f f 9 9 
+            `,img`
+            9 9 b b b 9 9 9 
+            9 b 5 5 5 b 9 9 
+            b 5 d 3 d 5 b 9 
+            b 5 3 5 1 5 b 9 
+            c 5 3 5 1 d c 9 
+            c 5 d 1 d d c 9 
+            9 f d d d f 9 9 
+            9 9 f f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 d 1 5 b 9 
+            9 b 5 3 1 5 b 9 
+            9 c 5 3 1 d c 9 
+            9 c 5 1 d d c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b 1 1 b 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b d d b 9 9 
+            9 9 c d d c 9 9 
+            9 9 c 3 3 c 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 1 d 5 b 9 
+            9 b 5 1 3 5 b 9 
+            9 c d 1 3 5 c 9 
+            9 c d d 1 5 c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b b 9 9 
+            9 9 b 5 5 5 b 9 
+            9 b 5 d 3 d 5 b 
+            9 b 5 1 5 3 5 b 
+            9 c d 1 5 3 5 c 
+            9 c d d 1 d 5 c 
+            9 9 f d d d f 9 
+            9 9 9 f f f 9 9 
+            `],
+        250,
+        true
+        )
+    }
+    Coin1.scale = 1.65
+}
+let Coin1: Sprite = null
+let SpeedBoost: Sprite = null
 let Cat: Sprite = null
 let Mermaid: Sprite = null
 let Explorer: Sprite = null
 let musicChoice = ""
 let selectedAvatar = ""
-let SpeedBoost: Sprite = null
 tiles.setCurrentTilemap(tilemap`MainMap`)
 let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
@@ -488,28 +589,9 @@ let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     `, SpriteKind.Player)
-SpeedBoost = sprites.create(img`
-    9 9 9 9 9 b b b b b b 9 9 9 9 9 
-    9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-    9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-    9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-    9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-    b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-    b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-    b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-    b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-    b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-    b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-    9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-    9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-    9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-    9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-    9 9 9 9 9 b b b b b b 9 9 9 9 9 
-    `, SpriteKind.Food)
 tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
-for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
-    tiles.placeOnTile(SpeedBoost, value)
-}
+SpawnSpeedBoost()
+spawn_coin()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 let playerName = game.askForString("What is your name?")
@@ -553,3 +635,6 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
+game.onUpdate(function () {
+	
+})
