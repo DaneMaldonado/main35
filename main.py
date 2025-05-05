@@ -1,3 +1,4 @@
+list2 = 0
 def spawn_explorer():
     global Explorer
     for value in tiles.get_tiles_by_type(assets.tile("""
@@ -25,10 +26,8 @@ def spawn_explorer():
         tiles.place_on_tile(Explorer, value)
         scene.camera_follow_sprite(Explorer)
 def movement(character: Sprite):
-    controller.move_sprite(character, 100, 0)
-    
+    controller.move_sprite(character, 70, 0)
     character.ay = 210
-
     character.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
     
     def on_jump_pressed():
@@ -64,7 +63,6 @@ def spawn_mermaid():
         scene.camera_follow_sprite(Mermaid)
 
 def on_left_pressed():
-
     if selectedAvatar == "Cat":
         animation.run_image_animation(Cat,
             [img("""
@@ -217,9 +215,115 @@ def on_left_pressed():
             False)
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
 
+def on_overlap_tile(sprite, location):
+    global ChoosePowerUp
+    PowerSelection = 0
+    game.splash("You have completed DAY 1, get some rest for the next day.")
+    game.splash("Its a little rocky up here, you will need to jump over obstacles!")
+    ChoosePowerUp = game.ask_for_number("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
+    if PowerSelection == 1:
+        controller.move_sprite(Explorer, 140, 0)
+        controller.move_sprite(Mermaid, 140, 0)
+        controller.move_sprite(Cat, 140, 0)
+    elif PowerSelection == 2:
+        Explorer.ay = 100
+        Mermaid.ay = 100
+        Cat.ay = 100
+    sprites.destroy(Coin1)
+    for value3 in tiles.get_tiles_by_type(assets.tile("""
+        myTile9
+        """)):
+        tiles.set_tile_at(value3, assets.tile("""
+            Underwater
+            """))
+    game.splash("Lets make it to DAY 2!")
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile9
+        """),
+    on_overlap_tile)
+
+def on_on_overlap(sprite2, otherSprite):
+    animation.run_image_animation(SpeedBoost,
+        [img("""
+                9 9 9 9 9 b b b b b b 9 9 9 9 9
+                9 9 9 b b 9 9 9 9 9 9 b b 9 9 9
+                9 9 b b 9 9 9 9 9 9 9 9 b b 9 9
+                9 b b 9 d 9 9 9 9 9 9 9 9 b b 9
+                9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9
+                b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b
+                b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b
+                b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b
+                b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b
+                9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9
+                9 b d 5 3 3 3 3 3 3 3 d 5 b b 9
+                9 9 b d 5 d 3 3 3 3 5 5 b b 9 9
+                9 9 9 b b 5 5 5 5 5 5 b b 9 9 9
+                9 9 9 9 9 b b b b b b 9 9 9 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9
+                9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9
+                9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9
+                9 b 9 1 b 9 9 b b b 9 9 b b b 9
+                9 b 3 9 b 9 b b b b 9 b 9 9 1 b
+                9 b b b b b 9 9 1 1 b b 3 9 9 b
+                9 9 9 9 b 9 d 9 1 1 b b b b b 9
+                9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9
+                9 9 b b b 5 3 3 d 9 b 9 9 9 9 9
+                9 b 5 1 b b 5 5 9 b b b b 9 9 9
+                9 b 5 5 b b b b b b 3 9 9 3 9 9
+                9 b b b b b b b 9 b 9 1 1 9 b 9
+                9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9
+                9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9
+                9 9 9 9 b b b 9 9 9 b b b b 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9
+                9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9
+                9 9 9 b b b b b b 9 9 b 9 9 9 9
+                9 9 b 9 9 d 9 9 1 1 d b b b b 9
+                9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b
+                9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b
+                9 9 b 9 3 3 9 9 9 9 9 d b b b 9
+                9 b 5 d 9 3 3 3 d d b b b b 9 9
+                b 5 5 5 b b b b b b b 9 9 1 b 9
+                b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9
+                9 b b 9 9 9 9 9 9 9 9 b b b 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9
+                9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9
+                9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9
+                9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9
+                9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                """)],
+        150,
+        False)
+sprites.on_overlap(SpriteKind.player, list2, on_on_overlap)
+
 def spawn_cat():
     global Cat
-    for value3 in tiles.get_tiles_by_type(assets.tile("""
+    for value32 in tiles.get_tiles_by_type(assets.tile("""
         myTile
         """)):
         Cat = sprites.create(img("""
@@ -239,7 +343,7 @@ def spawn_cat():
                 . f f . . f f . . f f . . .
                 """),
             SpriteKind.player)
-        tiles.place_on_tile(Cat, value3)
+        tiles.place_on_tile(Cat, value32)
         scene.camera_follow_sprite(Cat)
 
 def on_right_pressed():
@@ -395,27 +499,153 @@ def on_right_pressed():
             False)
 controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
 
+def SpawnCoin1():
+    global Coin1
+    for value4 in tiles.get_tiles_by_type(assets.tile("""
+        myTile9
+        """)):
+        Coin1 = sprites.create(img("""
+                . . b b b b . .
+                . b 5 5 5 5 b .
+                b 5 d 3 3 d 5 b
+                b 5 3 5 5 1 5 b
+                c 5 3 5 5 1 d c
+                c d d 1 1 d d c
+                . f d d d d f .
+                . . f f f f . .
+                """),
+            SpriteKind.food)
+        tiles.place_on_tile(Coin1, value4)
+        animation.run_image_animation(Coin1,
+            [img("""
+                    9 9 b b b b 9 9
+                    9 b 5 5 5 5 b 9
+                    b 5 d 3 3 d 5 b
+                    b 5 3 5 5 1 5 b
+                    c 5 3 5 5 1 d c
+                    c d d 1 1 d d c
+                    9 f d d d d f 9
+                    9 9 f f f f 9 9
+                    """),
+                img("""
+                    9 9 b b b 9 9 9
+                    9 b 5 5 5 b 9 9
+                    b 5 d 3 d 5 b 9
+                    b 5 3 5 1 5 b 9
+                    c 5 3 5 1 d c 9
+                    c 5 d 1 d d c 9
+                    9 f d d d f 9 9
+                    9 9 f f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 b 5 d 1 5 b 9
+                    9 b 5 3 1 5 b 9
+                    9 c 5 3 1 d c 9
+                    9 c 5 1 d d c 9
+                    9 9 f d d f 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 9 b 1 1 b 9 9
+                    9 9 b 5 5 b 9 9
+                    9 9 b d d b 9 9
+                    9 9 c d d c 9 9
+                    9 9 c 3 3 c 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 b 5 1 d 5 b 9
+                    9 b 5 1 3 5 b 9
+                    9 c d 1 3 5 c 9
+                    9 c d d 1 5 c 9
+                    9 9 f d d f 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b b 9 9
+                    9 9 b 5 5 5 b 9
+                    9 b 5 d 3 d 5 b
+                    9 b 5 1 5 3 5 b
+                    9 c d 1 5 3 5 c
+                    9 c d d 1 d 5 c
+                    9 9 f d d d f 9
+                    9 9 9 f f f 9 9
+                    """)],
+            150,
+            True)
+        Coin1.scale = 1.5
+Coin1: Sprite = None
+ChoosePowerUp = 0
 Cat: Sprite = None
 Mermaid: Sprite = None
 Explorer: Sprite = None
 musicChoice = ""
 selectedAvatar = ""
-tiles.set_current_tilemap(tilemap("""
-    MainMap
+playerName = ""
+SpeedBoost: Sprite = None
+tiles.set_current_tilemap(tilemap("""MainMap"""))
+LightBlue = sprites.create(img("""
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+        """),
+    SpriteKind.player)
+SpeedBoost = sprites.create(img("""
+        9 9 9 9 9 b b b b b b 9 9 9 9 9
+        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9
+        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9
+        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9
+        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9
+        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b
+        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b
+        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b
+        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b
+        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b
+        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b
+        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9
+        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9
+        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9
+        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9
+        9 9 9 9 9 b b b b b b 9 9 9 9 9
+        """),
+    SpriteKind.food)
+tiles.place_on_random_tile(LightBlue, assets.tile("""
+    myTile
     """))
-
+for value5 in tiles.get_tiles_by_type(assets.tile("""
+    myTile2
+    """)):
+    tiles.place_on_tile(None, value5)
+SpawnCoin1()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.ask_for_string("What is your name?")
 game.splash("Perfect, " + playerName)
-
 avatarChoice = game.ask_for_number("Perfect " + playerName + """
     , select an avatar:
     1. Explorer
     2. Mermaid
     3. Shark
     """)
-
 if avatarChoice == 1:
     selectedAvatar = "Explorer"
     spawn_explorer()
@@ -425,7 +655,6 @@ elif avatarChoice == 2:
 else:
     selectedAvatar = "Cat"
     spawn_cat()
-
 musicChoiceNum = game.ask_for_number("Okay " + playerName + """
     , choose music:
     1. Sitka
@@ -444,7 +673,6 @@ else:
     musicChoice = "Tokyo"
     music.play(music.string_playable("G A G B A G F E ", 120),
         music.PlaybackMode.LOOPING_IN_BACKGROUND)
-
 if selectedAvatar == "Explorer":
     movement(Explorer)
 elif selectedAvatar == "Mermaid":

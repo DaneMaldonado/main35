@@ -1,4 +1,4 @@
-let list = 0
+let list2 = 0
 function spawn_explorer () {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Explorer = sprites.create(img`
@@ -24,7 +24,7 @@ function spawn_explorer () {
     }
 }
 function movement (character: Sprite) {
-    controller.moveSprite(character, 100, 0)
+    controller.moveSprite(character, 70, 0)
     character.ay = 210
     character.setFlag(SpriteFlag.StayInScreen, true)
     controller.A.onEvent(ControllerButtonEvent.Pressed, function on_jump_pressed() {
@@ -213,19 +213,47 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, location) {
-    let PowerSelection = 0
     game.splash("You have completed DAY 1, get some rest for the next day.")
     game.splash("Its a little rocky up here, you will need to jump over obstacles!")
     ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
     if (PowerSelection == 1) {
-        selectedAvatar = "Explorer"
-        spawn_explorer()
+        controller.moveSprite(Explorer, 140, 0)
+        controller.moveSprite(Mermaid, 140, 0)
+        controller.moveSprite(Cat, 140, 0)
     } else if (PowerSelection == 2) {
-        selectedAvatar = "Mermaid"
-        spawn_mermaid()
+        Explorer.ay = 100
+        Mermaid.ay = 100
+        Cat.ay = 100
     }
+    sprites.destroy(Coin1)
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
+        tiles.setTileAt(value3, assets.tile`Underwater`)
+    }
+    game.splash("Lets make it to DAY 2!")
 })
-sprites.onOverlap(SpriteKind.Player, list, function (sprite, otherSprite) {
+function spawn_cat () {
+    for (let value32 of tiles.getTilesByType(assets.tile`myTile`)) {
+        Cat = sprites.create(img`
+            e e e . . . . e e e . . . . 
+            c d d c . . c d d c . . . . 
+            c b d d f f d d b c . . . . 
+            c 3 b d d b d b 3 c . . . . 
+            f b 3 d d d d 3 b f . . . . 
+            e d d d d d d d d e . . . . 
+            e d f d d d d f d e . b f b 
+            f d d f d d f d d f . f d f 
+            f b d d b b d d 2 f . f d f 
+            . f 2 2 2 2 2 2 b b f f d f 
+            . f b d d d d d d b b d b f 
+            . f d d d d d b d d f f f . 
+            . f d f f f d f f d f . . . 
+            . f f . . f f . . f f . . . 
+            `, SpriteKind.Player)
+        tiles.placeOnTile(Cat, value32)
+        scene.cameraFollowSprite(Cat)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, list2, function (sprite2, otherSprite) {
     animation.runImageAnimation(
     SpeedBoost,
     [img`
@@ -301,28 +329,6 @@ sprites.onOverlap(SpriteKind.Player, list, function (sprite, otherSprite) {
     false
     )
 })
-function spawn_cat () {
-    for (let value3 of tiles.getTilesByType(assets.tile`myTile`)) {
-        Cat = sprites.create(img`
-            e e e . . . . e e e . . . . 
-            c d d c . . c d d c . . . . 
-            c b d d f f d d b c . . . . 
-            c 3 b d d b d b 3 c . . . . 
-            f b 3 d d d d 3 b f . . . . 
-            e d d d d d d d d e . . . . 
-            e d f d d d d f d e . b f b 
-            f d d f d d f d d f . f d f 
-            f b d d b b d d 2 f . f d f 
-            . f 2 2 2 2 2 2 b b f f d f 
-            . f b d d d d d d b b d b f 
-            . f d d d d d b d d f f f . 
-            . f d f f f d f f d f . . . 
-            . f f . . f f . . f f . . . 
-            `, SpriteKind.Player)
-        tiles.placeOnTile(Cat, value3)
-        scene.cameraFollowSprite(Cat)
-    }
-}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (selectedAvatar == "Cat") {
         animation.runImageAnimation(
@@ -478,7 +484,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function SpawnCoin1 () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
+    for (let value4 of tiles.getTilesByType(assets.tile`myTile9`)) {
         Coin1 = sprites.create(img`
             . . b b b b . . 
             . b 5 5 5 5 b . 
@@ -489,7 +495,7 @@ function SpawnCoin1 () {
             . f d d d d f . 
             . . f f f f . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(Coin1, value)
+        tiles.placeOnTile(Coin1, value4)
         animation.runImageAnimation(
         Coin1,
         [img`
@@ -553,7 +559,27 @@ function SpawnCoin1 () {
         Coin1.scale = 1.5
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    game.splash("Hold tight, you are almost there!")
+    game.splash("DAY 3")
+    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
+    if (PowerSelection == 1) {
+        controller.moveSprite(Explorer, 140, 0)
+        controller.moveSprite(Mermaid, 140, 0)
+        controller.moveSprite(Cat, 140, 0)
+    } else if (PowerSelection == 2) {
+        Explorer.ay = 100
+        Mermaid.ay = 100
+        Cat.ay = 100
+    }
+    sprites.destroy(Coin1)
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
+        tiles.setTileAt(value3, assets.tile`Underwater`)
+    }
+    game.splash("Lets make it to DAY 2!")
+})
 let Coin1: Sprite = null
+let PowerSelection = 0
 let ChoosePowerUp = 0
 let Cat: Sprite = null
 let Mermaid: Sprite = null
@@ -600,14 +626,14 @@ SpeedBoost = sprites.create(img`
     9 9 9 9 9 b b b b b b 9 9 9 9 9 
     `, SpriteKind.Food)
 tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
-for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
-    tiles.placeOnTile(null, value)
+for (let value5 of tiles.getTilesByType(assets.tile`myTile2`)) {
+    tiles.placeOnTile(null, value5)
 }
+SpawnCoin1()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.askForString("What is your name?")
 game.splash("Perfect, " + playerName)
-SpawnCoin1()
 let avatarChoice = game.askForNumber("Perfect " + playerName + `
     , select an avatar:
     1. Explorer
