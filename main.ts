@@ -2,9 +2,6 @@ let list2 = 0
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     game.gameOver(false)
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    game.gameOver(false)
-})
 function spawn_explorer () {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Explorer = sprites.create(img`
@@ -40,6 +37,82 @@ function movement (character: Sprite) {
         
     })
 }
+sprites.onOverlap(SpriteKind.Player, list2, function (sprite22, otherSprite) {
+    animation.runImageAnimation(
+    SpeedBoost,
+    [img`
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
+        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
+        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
+        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
+        9 b b b b b 9 9 1 1 b b 3 9 9 b 
+        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
+        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
+        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
+        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
+        9 b 5 5 b b b b b b 3 9 9 3 9 9 
+        9 b b b b b b b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
+        9 9 9 9 b b b 9 9 9 b b b b 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
+        9 9 9 b b b b b b 9 9 b 9 9 9 9 
+        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
+        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
+        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
+        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
+        9 b 5 d 9 3 3 3 d d b b b b 9 9 
+        b 5 5 5 b b b b b b b 9 9 1 b 9 
+        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
+        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
+        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
+        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `],
+    150,
+    false
+    )
+})
 function spawn_mermaid () {
     for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
         Mermaid = sprites.create(img`
@@ -218,25 +291,15 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, location) {
-    let PowerSelection = 0
-    game.splash("You have completed DAY 1, get some rest for the next day.")
-    game.splash("Its a little rocky up here, you will need to jump over obstacles!")
-    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
-    if (PowerSelection == 1) {
-        controller.moveSprite(Explorer, 140, 0)
-        controller.moveSprite(Mermaid, 140, 0)
-        controller.moveSprite(Cat, 140, 0)
-    } else if (PowerSelection == 2) {
-        Explorer.ay = 100
-        Mermaid.ay = 100
-        Cat.ay = 100
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite4, location4) {
+    game.splash("DAY 3")
+    game.splash("Hold tight, you are almost there!")
+    game.splash("It gets a little high up here but we can handle it!")
+    game.splash("Lets do it!")
+    for (let value33 of tiles.getTilesByType(assets.tile`myTile10`)) {
+        tiles.setTileAt(value33, assets.tile`Underwater`)
     }
-    sprites.destroy(Coin1)
-    for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
-        tiles.setTileAt(value3, assets.tile`Underwater`)
-    }
-    game.splash("Lets make it to DAY 2!")
+    sprites.destroy(Coin2)
 })
 function spawn_cat () {
     for (let value32 of tiles.getTilesByType(assets.tile`myTile`)) {
@@ -260,82 +323,6 @@ function spawn_cat () {
         scene.cameraFollowSprite(Cat)
     }
 }
-sprites.onOverlap(SpriteKind.Player, list2, function (sprite2, otherSprite) {
-    animation.runImageAnimation(
-    SpeedBoost,
-    [img`
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
-        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
-        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
-        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
-        9 b b b b b 9 9 1 1 b b 3 9 9 b 
-        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
-        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
-        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
-        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
-        9 b 5 5 b b b b b b 3 9 9 3 9 9 
-        9 b b b b b b b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
-        9 9 9 9 b b b 9 9 9 b b b b 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
-        9 9 9 b b b b b b 9 9 b 9 9 9 9 
-        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
-        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
-        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
-        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
-        9 b 5 d 9 3 3 3 d d b b b b 9 9 
-        b 5 5 5 b b b b b b b 9 9 1 b 9 
-        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
-        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
-        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
-        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `],
-    150,
-    false
-    )
-})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (selectedAvatar == "Cat") {
         animation.runImageAnimation(
@@ -566,18 +553,31 @@ function SpawnCoin1 () {
         Coin1.scale = 1.5
     }
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    game.splash("DAY 3")
-    game.splash("Hold tight, you are almost there!")
-    game.splash("It gets a little high up here but we can handle it!")
-    game.splash("Lets do it!")
-    sprites.destroy(Coin2)
-    for (let value3 of tiles.getTilesByType(assets.tile`myTile10`)) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite2, location2) {
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
+    let PowerSelection = 0
+    game.splash("You have completed DAY 1, get some rest for the next day.")
+    game.splash("Its a little rocky down here, you will need to jump over obstacles!")
+    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
+    if (PowerSelection == 1) {
+        controller.moveSprite(Explorer, 140, 0)
+        controller.moveSprite(Mermaid, 140, 0)
+        controller.moveSprite(Cat, 140, 0)
+    } else if (PowerSelection == 2) {
+        Explorer.ay = 100
+        Mermaid.ay = 100
+        Cat.ay = 100
+    }
+    sprites.destroy(Coin1)
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
         tiles.setTileAt(value3, assets.tile`Underwater`)
     }
+    game.splash("Lets make it to DAY 3!")
 })
 function SpawnCoin2 () {
-    for (let value4 of tiles.getTilesByType(assets.tile`myTile10`)) {
+    for (let value42 of tiles.getTilesByType(assets.tile`myTile10`)) {
         Coin2 = sprites.create(img`
             . . b b b b . . 
             . b 5 5 5 5 b . 
@@ -588,7 +588,7 @@ function SpawnCoin2 () {
             . f d d d d f . 
             . . f f f f . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(Coin2, value4)
+        tiles.placeOnTile(Coin2, value42)
         animation.runImageAnimation(
         Coin2,
         [img`
@@ -652,9 +652,9 @@ function SpawnCoin2 () {
         Coin2.scale = 1.5
     }
 }
-let Coin2: Sprite = null
-let Coin1: Sprite = null
 let ChoosePowerUp = 0
+let Coin1: Sprite = null
+let Coin2: Sprite = null
 let Cat: Sprite = null
 let Mermaid: Sprite = null
 let Explorer: Sprite = null
@@ -700,20 +700,12 @@ SpeedBoost = sprites.create(img`
     9 9 9 9 9 b b b b b b 9 9 9 9 9 
     `, SpriteKind.Food)
 tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
-for (let value5 of tiles.getTilesByType(assets.tile`myTile2`)) {
-    tiles.placeOnTile(null, value5)
-}
 SpawnCoin1()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.askForString("What is your name?")
 game.splash("Perfect, " + playerName)
-let avatarChoice = game.askForNumber("Perfect " + playerName + `
-    , select an avatar:
-    1. Explorer
-    2. Mermaid
-    3. Shark
-    `)
+let avatarChoice = game.askForNumber("Perfect " + playerName + ", select an avatar: 1. Explorer 2. Mermaid 3. Shark")
 if (avatarChoice == 1) {
     selectedAvatar = "Explorer"
     spawn_explorer()
