@@ -1,4 +1,10 @@
 let list2 = 0
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
+    game.gameOver(false)
+})
 function spawn_explorer () {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Explorer = sprites.create(img`
@@ -24,7 +30,7 @@ function spawn_explorer () {
     }
 }
 function movement (character: Sprite) {
-    controller.moveSprite(character, 70, 0)
+    controller.moveSprite(character, 150, 0)
     character.ay = 210
     character.setFlag(SpriteFlag.StayInScreen, true)
     controller.A.onEvent(ControllerButtonEvent.Pressed, function on_jump_pressed() {
@@ -213,6 +219,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, location) {
+    let PowerSelection = 0
     game.splash("You have completed DAY 1, get some rest for the next day.")
     game.splash("Its a little rocky up here, you will need to jump over obstacles!")
     ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
@@ -560,26 +567,93 @@ function SpawnCoin1 () {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    game.splash("Hold tight, you are almost there!")
     game.splash("DAY 3")
-    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
-    if (PowerSelection == 1) {
-        controller.moveSprite(Explorer, 140, 0)
-        controller.moveSprite(Mermaid, 140, 0)
-        controller.moveSprite(Cat, 140, 0)
-    } else if (PowerSelection == 2) {
-        Explorer.ay = 100
-        Mermaid.ay = 100
-        Cat.ay = 100
-    }
-    sprites.destroy(Coin1)
-    for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
+    game.splash("Hold tight, you are almost there!")
+    game.splash("It gets a little high up here but we can handle it!")
+    game.splash("Lets do it!")
+    sprites.destroy(Coin2)
+    for (let value3 of tiles.getTilesByType(assets.tile`myTile10`)) {
         tiles.setTileAt(value3, assets.tile`Underwater`)
     }
-    game.splash("Lets make it to DAY 2!")
 })
+function SpawnCoin2 () {
+    for (let value4 of tiles.getTilesByType(assets.tile`myTile10`)) {
+        Coin2 = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(Coin2, value4)
+        animation.runImageAnimation(
+        Coin2,
+        [img`
+            9 9 b b b b 9 9 
+            9 b 5 5 5 5 b 9 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            9 f d d d d f 9 
+            9 9 f f f f 9 9 
+            `,img`
+            9 9 b b b 9 9 9 
+            9 b 5 5 5 b 9 9 
+            b 5 d 3 d 5 b 9 
+            b 5 3 5 1 5 b 9 
+            c 5 3 5 1 d c 9 
+            c 5 d 1 d d c 9 
+            9 f d d d f 9 9 
+            9 9 f f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 d 1 5 b 9 
+            9 b 5 3 1 5 b 9 
+            9 c 5 3 1 d c 9 
+            9 c 5 1 d d c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b 1 1 b 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b d d b 9 9 
+            9 9 c d d c 9 9 
+            9 9 c 3 3 c 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 1 d 5 b 9 
+            9 b 5 1 3 5 b 9 
+            9 c d 1 3 5 c 9 
+            9 c d d 1 5 c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b b 9 9 
+            9 9 b 5 5 5 b 9 
+            9 b 5 d 3 d 5 b 
+            9 b 5 1 5 3 5 b 
+            9 c d 1 5 3 5 c 
+            9 c d d 1 d 5 c 
+            9 9 f d d d f 9 
+            9 9 9 f f f 9 9 
+            `],
+        150,
+        true
+        )
+        Coin2.scale = 1.5
+    }
+}
+let Coin2: Sprite = null
 let Coin1: Sprite = null
-let PowerSelection = 0
 let ChoosePowerUp = 0
 let Cat: Sprite = null
 let Mermaid: Sprite = null
