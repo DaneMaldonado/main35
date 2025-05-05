@@ -1,3 +1,4 @@
+let list = 0
 function spawn_explorer () {
     for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         Explorer = sprites.create(img`
@@ -211,30 +212,95 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
-function SpawnSpeedBoost () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
-        SpeedBoost = sprites.create(img`
-            9 9 9 9 9 b b b b b b 9 9 9 9 9 
-            9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-            9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-            9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-            9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-            b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-            b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-            b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-            b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-            b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-            b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-            9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-            9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-            9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-            9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-            9 9 9 9 9 b b b b b b 9 9 9 9 9 
-            `, SpriteKind.Food)
-        tiles.placeOnTile(SpeedBoost, value)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, location) {
+    let PowerSelection = 0
+    game.splash("You have completed DAY 1, get some rest for the next day.")
+    game.splash("Its a little rocky up here, you will need to jump over obstacles!")
+    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
+    if (PowerSelection == 1) {
+        selectedAvatar = "Explorer"
+        spawn_explorer()
+    } else if (PowerSelection == 2) {
+        selectedAvatar = "Mermaid"
+        spawn_mermaid()
     }
-    SpeedBoost.scale = 0.7
-}
+})
+sprites.onOverlap(SpriteKind.Player, list, function (sprite, otherSprite) {
+    animation.runImageAnimation(
+    SpeedBoost,
+    [img`
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
+        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
+        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
+        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
+        9 b b b b b 9 9 1 1 b b 3 9 9 b 
+        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
+        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
+        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
+        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
+        9 b 5 5 b b b b b b 3 9 9 3 9 9 
+        9 b b b b b b b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
+        9 9 9 9 b b b 9 9 9 b b b b 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
+        9 9 9 b b b b b b 9 9 b 9 9 9 9 
+        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
+        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
+        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
+        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
+        9 b 5 d 9 3 3 3 d d b b b b 9 9 
+        b 5 5 5 b b b b b b b 9 9 1 b 9 
+        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
+        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
+        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
+        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `],
+    150,
+    false
+    )
+})
 function spawn_cat () {
     for (let value3 of tiles.getTilesByType(assets.tile`myTile`)) {
         Cat = sprites.create(img`
@@ -411,83 +477,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    animation.runImageAnimation(
-    SpeedBoost,
-    [img`
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
-        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
-        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
-        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
-        9 b b b b b 9 9 1 1 b b 3 9 9 b 
-        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
-        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
-        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
-        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
-        9 b 5 5 b b b b b b 3 9 9 3 9 9 
-        9 b b b b b b b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
-        9 9 9 9 b b b 9 9 9 b b b b 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
-        9 9 9 b b b b b b 9 9 b 9 9 9 9 
-        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
-        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
-        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
-        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
-        9 b 5 d 9 3 3 3 d d b b b b 9 9 
-        b 5 5 5 b b b b b b b 9 9 1 b 9 
-        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
-        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
-        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
-        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `],
-    150,
-    false
-    )
-})
-function spawn_coin () {
+function SpawnCoin1 () {
     for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
         Coin1 = sprites.create(img`
             . . b b b b . . 
@@ -498,7 +488,7 @@ function spawn_coin () {
             c d d 1 1 d d c 
             . f d d d d f . 
             . . f f f f . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.Food)
         tiles.placeOnTile(Coin1, value)
         animation.runImageAnimation(
         Coin1,
@@ -557,19 +547,21 @@ function spawn_coin () {
             9 9 f d d d f 9 
             9 9 9 f f f 9 9 
             `],
-        250,
+        150,
         true
         )
+        Coin1.scale = 1.5
     }
-    Coin1.scale = 1.65
 }
 let Coin1: Sprite = null
-let SpeedBoost: Sprite = null
+let ChoosePowerUp = 0
 let Cat: Sprite = null
 let Mermaid: Sprite = null
 let Explorer: Sprite = null
 let musicChoice = ""
 let selectedAvatar = ""
+let playerName = ""
+let SpeedBoost: Sprite = null
 tiles.setCurrentTilemap(tilemap`MainMap`)
 let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
@@ -589,13 +581,33 @@ let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     `, SpriteKind.Player)
+SpeedBoost = sprites.create(img`
+    9 9 9 9 9 b b b b b b 9 9 9 9 9 
+    9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+    9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+    9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+    9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+    b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+    b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+    b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+    b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+    b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+    b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+    9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+    9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+    9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+    9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+    9 9 9 9 9 b b b b b b 9 9 9 9 9 
+    `, SpriteKind.Food)
 tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
-SpawnSpeedBoost()
-spawn_coin()
+for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+    tiles.placeOnTile(null, value)
+}
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
-let playerName = game.askForString("What is your name?")
+playerName = game.askForString("What is your name?")
 game.splash("Perfect, " + playerName)
+SpawnCoin1()
 let avatarChoice = game.askForNumber("Perfect " + playerName + `
     , select an avatar:
     1. Explorer
@@ -635,6 +647,3 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
-game.onUpdate(function () {
-	
-})
