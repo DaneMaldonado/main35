@@ -26,6 +26,82 @@ function spawn_explorer () {
         scene.cameraFollowSprite(Explorer)
     }
 }
+function SpawnCoin3 () {
+    for (let value43 of tiles.getTilesByType(assets.tile`myTile11`)) {
+        coin3 = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(coin3, value43)
+        animation.runImageAnimation(
+        coin3,
+        [img`
+            9 9 b b b b 9 9 
+            9 b 5 5 5 5 b 9 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            9 f d d d d f 9 
+            9 9 f f f f 9 9 
+            `,img`
+            9 9 b b b 9 9 9 
+            9 b 5 5 5 b 9 9 
+            b 5 d 3 d 5 b 9 
+            b 5 3 5 1 5 b 9 
+            c 5 3 5 1 d c 9 
+            c 5 d 1 d d c 9 
+            9 f d d d f 9 9 
+            9 9 f f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 d 1 5 b 9 
+            9 b 5 3 1 5 b 9 
+            9 c 5 3 1 d c 9 
+            9 c 5 1 d d c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b 1 1 b 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b d d b 9 9 
+            9 9 c d d c 9 9 
+            9 9 c 3 3 c 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 1 d 5 b 9 
+            9 b 5 1 3 5 b 9 
+            9 c d 1 3 5 c 9 
+            9 c d d 1 5 c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b b 9 9 
+            9 9 b 5 5 5 b 9 
+            9 b 5 d 3 d 5 b 
+            9 b 5 1 5 3 5 b 
+            9 c d 1 5 3 5 c 
+            9 c d d 1 d 5 c 
+            9 9 f d d d f 9 
+            9 9 9 f f f 9 9 
+            `],
+        150,
+        true
+        )
+        coin3.scale = 1.5
+    }
+}
 function movement (character: Sprite) {
     controller.moveSprite(character, 150, 0)
     character.ay = 210
@@ -37,6 +113,20 @@ function movement (character: Sprite) {
         
     })
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
+    Explorer.ay = -500
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite4, location4) {
+    music.stopAllSounds()
+    game.splash("You have made it to DAY 4!")
+    game.splash(".")
+    game.splash(".")
+    for (let value33 of tiles.getTilesByType(assets.tile`myTile11`)) {
+        tiles.setTileAt(value33, assets.tile`Underwater`)
+    }
+    sprites.destroy(coin3)
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
+})
 sprites.onOverlap(SpriteKind.Player, list2, function (sprite22, otherSprite) {
     animation.runImageAnimation(
     SpeedBoost,
@@ -292,6 +382,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite4, location4) {
+    music.stopAllSounds()
     game.splash("DAY 3")
     game.splash("Hold tight, you are almost there!")
     game.splash("It gets a little high up here but we can handle it!")
@@ -300,6 +391,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite4,
         tiles.setTileAt(value33, assets.tile`Underwater`)
     }
     sprites.destroy(Coin2)
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
 })
 function spawn_cat () {
     for (let value32 of tiles.getTilesByType(assets.tile`myTile`)) {
@@ -558,9 +650,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite2, 
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
     let PowerSelection = 0
+    music.stopAllSounds()
     game.splash("You have completed DAY 1, get some rest for the next day.")
     game.splash("Its a little rocky down here, you will need to jump over obstacles!")
-    ChoosePowerUp = game.askForNumber("Great " + playerName + "Choose (1. 2x Speed, 2. 2x Jump)")
+    ChoosePowerUp = game.askForNumber("Great " + playerName + ". Choose 1. 2x Speed, 2. 2x Jump", 1)
+    sprites.destroy(Coin1)
     if (PowerSelection == 1) {
         controller.moveSprite(Explorer, 140, 0)
         controller.moveSprite(Mermaid, 140, 0)
@@ -575,6 +669,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, 
         tiles.setTileAt(value3, assets.tile`Underwater`)
     }
     game.splash("Lets make it to DAY 3!")
+    music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
 })
 function SpawnCoin2 () {
     for (let value42 of tiles.getTilesByType(assets.tile`myTile10`)) {
@@ -655,6 +750,7 @@ function SpawnCoin2 () {
 let ChoosePowerUp = 0
 let Coin1: Sprite = null
 let Coin2: Sprite = null
+let coin3: Sprite = null
 let Cat: Sprite = null
 let Mermaid: Sprite = null
 let Explorer: Sprite = null
@@ -701,11 +797,13 @@ SpeedBoost = sprites.create(img`
     `, SpriteKind.Food)
 tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
 SpawnCoin1()
+SpawnCoin2()
+SpawnCoin3()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.askForString("What is your name?")
-game.splash("Perfect, " + playerName)
-let avatarChoice = game.askForNumber("Perfect " + playerName + ", select an avatar: 1. Explorer 2. Mermaid 3. Shark")
+game.splash("Perfect, " + playerName + ".")
+let avatarChoice = game.askForNumber("1. Explorer 2. Mermaid 3. Shark", 1)
 if (avatarChoice == 1) {
     selectedAvatar = "Explorer"
     spawn_explorer()
@@ -716,12 +814,7 @@ if (avatarChoice == 1) {
     selectedAvatar = "Cat"
     spawn_cat()
 }
-let musicChoiceNum = game.askForNumber("Okay " + playerName + `
-    , choose music:
-    1. Sitka
-    2. Paris
-    3. Tokyo
-    `)
+let musicChoiceNum = game.askForNumber("Okay " + playerName + ". Music: 1. Sitka 2. Paris 3. Tokyo", 1)
 if (musicChoiceNum == 1) {
     musicChoice = "Sitka"
     music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
@@ -739,3 +832,6 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
+game.onUpdateInterval(500, function () {
+    Explorer.ay = 210
+})
