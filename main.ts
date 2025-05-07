@@ -112,9 +112,6 @@ function movement (character: Sprite) {
         
     })
 }
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
-})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite4, location4) {
     music.stopAllSounds()
     game.splash("You have made it to DAY 4!")
@@ -651,11 +648,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite2,
     false
     )
     sprites.destroy(DoubleJump)
-    if (Explorer.vy == 0 || number_of_jumps == 1) {
-        let jump_speed = 0
-        Explorer.setVelocity(0, jump_speed)
-        number_of_jumps += 1
-    }
+    PowerUpAsk = game.askForString("Claim 10 seconds back! Select 1.")
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
     let PowerSelection = 0
@@ -868,6 +861,7 @@ function SpawnCoin2 () {
 }
 let coin4: Sprite = null
 let ChoosePowerUp = 0
+let PowerUpAsk = ""
 let DoubleJump: Sprite = null
 let Coin2: Sprite = null
 let Coin1: Sprite = null
@@ -921,7 +915,6 @@ SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
 SpawnDoubleJump()
-number_of_jumps = 0
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.askForString("What is your name?")

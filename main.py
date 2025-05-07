@@ -145,97 +145,6 @@ scene.on_overlap_tile(SpriteKind.player,
         """),
     on_overlap_tile2)
 
-def on_overlap_tile3(sprite2, location2):
-    for value42 in tiles.get_tiles_by_type(assets.tile("""
-        myTile12
-        """)):
-        tiles.set_tile_at(value42, assets.tile("""
-            Underwater
-            """))
-    animation.run_image_animation(DoubleJump,
-        [img("""
-                9 9 9 9 9 b b b b b b 9 9 9 9 9
-                9 9 9 b b 9 9 9 9 9 9 b b 9 9 9
-                9 9 b b 9 9 9 9 9 9 9 9 b b 9 9
-                9 b b 9 d 9 9 9 9 9 9 9 9 b b 9
-                9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9
-                b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b
-                b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b
-                b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b
-                b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b
-                b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b
-                b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b
-                9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9
-                9 b d 5 3 3 3 3 3 3 3 d 5 b b 9
-                9 9 b d 5 d 3 3 3 3 5 5 b b 9 9
-                9 9 9 b b 5 5 5 5 5 5 b b 9 9 9
-                9 9 9 9 9 b b b b b b 9 9 9 9 9
-                """),
-            img("""
-                9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9
-                9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9
-                9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9
-                9 b 9 1 b 9 9 b b b 9 9 b b b 9
-                9 b 3 9 b 9 b b b b 9 b 9 9 1 b
-                9 b b b b b 9 9 1 1 b b 3 9 9 b
-                9 9 9 9 b 9 d 9 1 1 b b b b b 9
-                9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9
-                9 9 b b b 5 3 3 d 9 b 9 9 9 9 9
-                9 b 5 1 b b 5 5 9 b b b b 9 9 9
-                9 b 5 5 b b b b b b 3 9 9 3 9 9
-                9 b b b b b b b 9 b 9 1 1 9 b 9
-                9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9
-                9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9
-                9 9 9 9 b b b 9 9 9 b b b b 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                """),
-            img("""
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9
-                9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9
-                9 9 9 b b b b b b 9 9 b 9 9 9 9
-                9 9 b 9 9 d 9 9 1 1 d b b b b 9
-                9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b
-                9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b
-                9 9 b 9 3 3 9 9 9 9 9 d b b b 9
-                9 b 5 d 9 3 3 3 d d b b b b 9 9
-                b 5 5 5 b b b b b b b 9 9 1 b 9
-                b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9
-                9 b b 9 9 9 9 9 9 9 9 b b b 9 9
-                """),
-            img("""
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9
-                9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9
-                9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9
-                9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9
-                9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
-                """)],
-        150,
-        False)
-    sprites.destroy(DoubleJump)
-    if 0 == 0:
-        pass
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        myTile12
-        """),
-    on_overlap_tile3)
-
 def spawn_mermaid():
     global Mermaid
     for value2 in tiles.get_tiles_by_type(assets.tile("""
@@ -441,13 +350,13 @@ def spawn_cat():
         tiles.place_on_tile(Cat, value32)
         scene.camera_follow_sprite(Cat)
 
-def on_overlap_tile4(sprite23, location22):
+def on_overlap_tile3(sprite23, location22):
     game.game_over(False)
 scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         myTile1
         """),
-    on_overlap_tile4)
+    on_overlap_tile3)
 
 def on_right_pressed():
     if selectedAvatar == "Cat":
@@ -684,7 +593,7 @@ def SpawnCoin1():
             True)
         Coin1.scale = 1.5
 
-def on_overlap_tile5(sprite42, location42):
+def on_overlap_tile4(sprite42, location42):
     music.stop_all_sounds()
     game.splash("DAY 3")
     game.splash("Hold tight, you are almost there!")
@@ -702,6 +611,97 @@ def on_overlap_tile5(sprite42, location42):
 scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         myTile10
+        """),
+    on_overlap_tile4)
+
+def on_overlap_tile5(sprite2, location2):
+    global PowerUpAsk
+    for value42 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        tiles.set_tile_at(value42, assets.tile("""
+            Underwater
+            """))
+    animation.run_image_animation(DoubleJump,
+        [img("""
+                9 9 9 9 9 b b b b b b 9 9 9 9 9
+                9 9 9 b b 9 9 9 9 9 9 b b 9 9 9
+                9 9 b b 9 9 9 9 9 9 9 9 b b 9 9
+                9 b b 9 d 9 9 9 9 9 9 9 9 b b 9
+                9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9
+                b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b
+                b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b
+                b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b
+                b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b
+                9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9
+                9 b d 5 3 3 3 3 3 3 3 d 5 b b 9
+                9 9 b d 5 d 3 3 3 3 5 5 b b 9 9
+                9 9 9 b b 5 5 5 5 5 5 b b 9 9 9
+                9 9 9 9 9 b b b b b b 9 9 9 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9
+                9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9
+                9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9
+                9 b 9 1 b 9 9 b b b 9 9 b b b 9
+                9 b 3 9 b 9 b b b b 9 b 9 9 1 b
+                9 b b b b b 9 9 1 1 b b 3 9 9 b
+                9 9 9 9 b 9 d 9 1 1 b b b b b 9
+                9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9
+                9 9 b b b 5 3 3 d 9 b 9 9 9 9 9
+                9 b 5 1 b b 5 5 9 b b b b 9 9 9
+                9 b 5 5 b b b b b b 3 9 9 3 9 9
+                9 b b b b b b b 9 b 9 1 1 9 b 9
+                9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9
+                9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9
+                9 9 9 9 b b b 9 9 9 b b b b 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9
+                9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9
+                9 9 9 b b b b b b 9 9 b 9 9 9 9
+                9 9 b 9 9 d 9 9 1 1 d b b b b 9
+                9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b
+                9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b
+                9 9 b 9 3 3 9 9 9 9 9 d b b b 9
+                9 b 5 d 9 3 3 3 d d b b b b 9 9
+                b 5 5 5 b b b b b b b 9 9 1 b 9
+                b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9
+                9 b b 9 9 9 9 9 9 9 9 b b b 9 9
+                """),
+            img("""
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9
+                9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9
+                9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9
+                9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9
+                9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+                """)],
+        150,
+        False)
+    sprites.destroy(DoubleJump)
+    PowerUpAsk = game.ask_for_string("Claim 10 seconds back! Select 1")
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile12
         """),
     on_overlap_tile5)
 
@@ -737,26 +737,6 @@ scene.on_overlap_tile(SpriteKind.player,
         myTile9
         """),
     on_overlap_tile6)
-
-def on_overlap_tile7(sprite422, location422):
-    music.stop_all_sounds()
-    game.splash("DAY 5!")
-    game.splash("The Last Jump!")
-    game.splash("Are you ready?")
-    for value3322 in tiles.get_tiles_by_type(assets.tile("""
-        myTile12
-        """)):
-        tiles.set_tile_at(value3322, assets.tile("""
-            Underwater
-            """))
-    sprites.destroy(coin4)
-    music.play(music.string_playable("E B C5 A B G A F ", 120),
-        music.PlaybackMode.LOOPING_IN_BACKGROUND)
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        myTile13
-        """),
-    on_overlap_tile7)
 
 def SpawnDoubleJump():
     global DoubleJump
@@ -864,6 +844,27 @@ def SpawnCoin4():
             150,
             True)
         coin4.scale = 1.5
+
+def on_overlap_tile7(sprite422, location422):
+    music.stop_all_sounds()
+    game.splash("DAY 5!")
+    game.splash("The Last Jump!")
+    game.splash("Are you ready?")
+    for value3322 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        tiles.set_tile_at(value3322, assets.tile("""
+            Underwater
+            """))
+    sprites.destroy(coin4)
+    music.play(music.string_playable("E B C5 A B G A F ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile13
+        """),
+    on_overlap_tile7)
+
 def SpawnCoin2():
     global Coin2
     for value423 in tiles.get_tiles_by_type(assets.tile("""
@@ -947,9 +948,10 @@ def SpawnCoin2():
         Coin2.scale = 1.5
 coin4: Sprite = None
 ChoosePowerUp = 0
+PowerUpAsk = ""
+DoubleJump: Sprite = None
 Coin2: Sprite = None
 Coin1: Sprite = None
-DoubleJump: Sprite = None
 coin3: Sprite = None
 Cat: Sprite = None
 Mermaid: Sprite = None
@@ -1005,6 +1007,7 @@ SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
 SpawnDoubleJump()
+number_of_jumps = 0
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.ask_for_string("What is your name?")
@@ -1039,19 +1042,3 @@ elif selectedAvatar == "Mermaid":
     movement(Mermaid)
 elif selectedAvatar == "Cat":
     movement(Cat)
-
-number_of_jumps = 0
-jump_speed = 0
-
-def on_on_update():
-    global number_of_jumps
-    if Explorer.vy == 0:
-        number_of_jumps = 0
-game.on_update(on_on_update)
-
-def on_a_pressed():
-    global number_of_jumps
-    if Explorer.vy == 0 or number_of_jumps == 1:
-        Explorer.set_velocity(0, jump_speed)
-        number_of_jumps += 1
-controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
