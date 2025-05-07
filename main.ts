@@ -570,6 +570,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite42
     music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite2, location2) {
+    music.stopAllSounds()
     for (let value42 of tiles.getTilesByType(assets.tile`myTile12`)) {
         tiles.setTileAt(value42, assets.tile`Underwater`)
     }
@@ -648,7 +649,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite2,
     false
     )
     sprites.destroy(DoubleJump)
-    PowerUpAsk = game.askForString("Claim 10 seconds back! Select 1.")
+    PowerUpAsk = game.askForNumber("Claim 10 seconds back! Select 1 Quick!", 1)
+    if (PowerUpAsk == 1) {
+        info.changeCountdownBy(10)
+    } else {
+        info.changeCountdownBy(-10)
+    }
+    music.play(music.stringPlayable("A F E F D G E F ", 120), music.PlaybackMode.LoopingInBackground)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
     let PowerSelection = 0
@@ -694,6 +701,7 @@ function SpawnDoubleJump () {
             . . . . . b b b b b b . . . . . 
             `, SpriteKind.Food)
         tiles.placeOnTile(DoubleJump, value422)
+        DoubleJump.scale = 0.75
     }
 }
 function SpawnCoin4 () {
@@ -861,7 +869,7 @@ function SpawnCoin2 () {
 }
 let coin4: Sprite = null
 let ChoosePowerUp = 0
-let PowerUpAsk = ""
+let PowerUpAsk = 0
 let DoubleJump: Sprite = null
 let Coin2: Sprite = null
 let Coin1: Sprite = null
@@ -948,3 +956,4 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
+info.startCountdown(30)
