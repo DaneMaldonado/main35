@@ -115,12 +115,16 @@ function movement (character: Sprite) {
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     Explorer.ay = -500
+    for (let value332 of tiles.getTilesByType(assets.tile`myTile4`)) {
+        tiles.setTileAt(location, assets.tile`Underwater`)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite4, location4) {
     music.stopAllSounds()
     game.splash("You have made it to DAY 4!")
-    game.splash(".")
-    game.splash(".")
+    game.splash("Its very high up here, but thats okay.")
+    game.splash("Land on the pad below!")
+    game.splash("Are you ready?")
     for (let value33 of tiles.getTilesByType(assets.tile`myTile11`)) {
         tiles.setTileAt(value33, assets.tile`Underwater`)
     }
@@ -381,18 +385,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite4, location4) {
-    music.stopAllSounds()
-    game.splash("DAY 3")
-    game.splash("Hold tight, you are almost there!")
-    game.splash("It gets a little high up here but we can handle it!")
-    game.splash("Lets do it!")
-    for (let value33 of tiles.getTilesByType(assets.tile`myTile10`)) {
-        tiles.setTileAt(value33, assets.tile`Underwater`)
-    }
-    sprites.destroy(Coin2)
-    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
-})
 function spawn_cat () {
     for (let value32 of tiles.getTilesByType(assets.tile`myTile`)) {
         Cat = sprites.create(img`
@@ -415,6 +407,20 @@ function spawn_cat () {
         scene.cameraFollowSprite(Cat)
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite42, location42) {
+    music.stopAllSounds()
+    game.splash("DAY 5!")
+    game.splash("The Last Jump!")
+    game.splash("Are you ready?")
+    for (let value332 of tiles.getTilesByType(assets.tile`myTile12`)) {
+        tiles.setTileAt(value332, assets.tile`Underwater`)
+    }
+    sprites.destroy(coin4)
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite23, location22) {
+    game.gameOver(false)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (selectedAvatar == "Cat") {
         animation.runImageAnimation(
@@ -645,8 +651,17 @@ function SpawnCoin1 () {
         Coin1.scale = 1.5
     }
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite2, location2) {
-    game.gameOver(false)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite42, location42) {
+    music.stopAllSounds()
+    game.splash("DAY 3")
+    game.splash("Hold tight, you are almost there!")
+    game.splash("It gets a little high up here but we can handle it!")
+    game.splash("Lets do it!")
+    for (let value332 of tiles.getTilesByType(assets.tile`myTile10`)) {
+        tiles.setTileAt(value332, assets.tile`Underwater`)
+    }
+    sprites.destroy(Coin2)
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
     let PowerSelection = 0
@@ -671,6 +686,82 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, 
     game.splash("Lets make it to DAY 3!")
     music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
 })
+function SpawnCoin4 () {
+    for (let value43 of tiles.getTilesByType(assets.tile`myTile12`)) {
+        coin4 = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(coin4, value43)
+        animation.runImageAnimation(
+        coin3,
+        [img`
+            9 9 b b b b 9 9 
+            9 b 5 5 5 5 b 9 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            9 f d d d d f 9 
+            9 9 f f f f 9 9 
+            `,img`
+            9 9 b b b 9 9 9 
+            9 b 5 5 5 b 9 9 
+            b 5 d 3 d 5 b 9 
+            b 5 3 5 1 5 b 9 
+            c 5 3 5 1 d c 9 
+            c 5 d 1 d d c 9 
+            9 f d d d f 9 9 
+            9 9 f f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 d 1 5 b 9 
+            9 b 5 3 1 5 b 9 
+            9 c 5 3 1 d c 9 
+            9 c 5 1 d d c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b 1 1 b 9 9 
+            9 9 b 5 5 b 9 9 
+            9 9 b d d b 9 9 
+            9 9 c d d c 9 9 
+            9 9 c 3 3 c 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b 9 9 9 
+            9 9 b 5 5 b 9 9 
+            9 b 5 1 d 5 b 9 
+            9 b 5 1 3 5 b 9 
+            9 c d 1 3 5 c 9 
+            9 c d d 1 5 c 9 
+            9 9 f d d f 9 9 
+            9 9 9 f f 9 9 9 
+            `,img`
+            9 9 9 b b b 9 9 
+            9 9 b 5 5 5 b 9 
+            9 b 5 d 3 d 5 b 
+            9 b 5 1 5 3 5 b 
+            9 c d 1 5 3 5 c 
+            9 c d d 1 d 5 c 
+            9 9 f d d d f 9 
+            9 9 9 f f f 9 9 
+            `],
+        150,
+        true
+        )
+        coin4.scale = 1.5
+    }
+}
 function SpawnCoin2 () {
     for (let value42 of tiles.getTilesByType(assets.tile`myTile10`)) {
         Coin2 = sprites.create(img`
@@ -748,8 +839,9 @@ function SpawnCoin2 () {
     }
 }
 let ChoosePowerUp = 0
-let Coin1: Sprite = null
 let Coin2: Sprite = null
+let Coin1: Sprite = null
+let coin4: Sprite = null
 let coin3: Sprite = null
 let Cat: Sprite = null
 let Mermaid: Sprite = null
@@ -832,6 +924,3 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
-game.onUpdateInterval(500, function () {
-    Explorer.ay = 210
-})
