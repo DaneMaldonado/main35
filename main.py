@@ -1,5 +1,3 @@
-list2 = 0
-
 def on_overlap_tile(sprite, location):
     game.game_over(False)
 scene.on_overlap_tile(SpriteKind.player,
@@ -126,19 +124,12 @@ def movement(character: Sprite):
     controller.A.on_event(ControllerButtonEvent.PRESSED, on_jump_pressed)
     
 
-def on_overlap_tile2(sprite2, location2):
-    Explorer.ay = -500
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        myTile4
-        """),
-    on_overlap_tile2)
-
-def on_overlap_tile3(sprite4, location4):
+def on_overlap_tile2(sprite4, location4):
     music.stop_all_sounds()
     game.splash("You have made it to DAY 4!")
-    game.splash(".")
-    game.splash(".")
+    game.splash("Its very high up here, but thats okay.")
+    game.splash("Land on the pad below!")
+    game.splash("Are you ready?")
     for value33 in tiles.get_tiles_by_type(assets.tile("""
         myTile11
         """)):
@@ -152,10 +143,16 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         myTile11
         """),
-    on_overlap_tile3)
+    on_overlap_tile2)
 
-def on_on_overlap(sprite22, otherSprite):
-    animation.run_image_animation(SpeedBoost,
+def on_overlap_tile3(sprite2, location2):
+    for value42 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        tiles.set_tile_at(value42, assets.tile("""
+            Underwater
+            """))
+    animation.run_image_animation(DoubleJump,
         [img("""
                 9 9 9 9 9 b b b b b b 9 9 9 9 9
                 9 9 9 b b 9 9 9 9 9 9 b b 9 9 9
@@ -230,7 +227,14 @@ def on_on_overlap(sprite22, otherSprite):
                 """)],
         150,
         False)
-sprites.on_overlap(SpriteKind.player, list2, on_on_overlap)
+    sprites.destroy(DoubleJump)
+    if 0 == 0:
+        pass
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile12
+        """),
+    on_overlap_tile3)
 
 def spawn_mermaid():
     global Mermaid
@@ -412,27 +416,6 @@ def on_left_pressed():
             False)
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
 
-def on_overlap_tile4(sprite42, location42):
-    music.stop_all_sounds()
-    game.splash("DAY 3")
-    game.splash("Hold tight, you are almost there!")
-    game.splash("It gets a little high up here but we can handle it!")
-    game.splash("Lets do it!")
-    for value332 in tiles.get_tiles_by_type(assets.tile("""
-        myTile10
-        """)):
-        tiles.set_tile_at(value332, assets.tile("""
-            Underwater
-            """))
-    sprites.destroy(Coin2)
-    music.play(music.string_playable("E B C5 A B G A F ", 120),
-        music.PlaybackMode.LOOPING_IN_BACKGROUND)
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        myTile10
-        """),
-    on_overlap_tile4)
-
 def spawn_cat():
     global Cat
     for value32 in tiles.get_tiles_by_type(assets.tile("""
@@ -457,6 +440,14 @@ def spawn_cat():
             SpriteKind.player)
         tiles.place_on_tile(Cat, value32)
         scene.camera_follow_sprite(Cat)
+
+def on_overlap_tile4(sprite23, location22):
+    game.game_over(False)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile1
+        """),
+    on_overlap_tile4)
 
 def on_right_pressed():
     if selectedAvatar == "Cat":
@@ -693,11 +684,24 @@ def SpawnCoin1():
             True)
         Coin1.scale = 1.5
 
-def on_overlap_tile5(sprite23, location22):
-    game.game_over(False)
+def on_overlap_tile5(sprite42, location42):
+    music.stop_all_sounds()
+    game.splash("DAY 3")
+    game.splash("Hold tight, you are almost there!")
+    game.splash("It gets a little high up here but we can handle it!")
+    game.splash("Lets do it!")
+    for value332 in tiles.get_tiles_by_type(assets.tile("""
+        myTile10
+        """)):
+        tiles.set_tile_at(value332, assets.tile("""
+            Underwater
+            """))
+    sprites.destroy(Coin2)
+    music.play(music.string_playable("E B C5 A B G A F ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
 scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
-        myTile1
+        myTile10
         """),
     on_overlap_tile5)
 
@@ -734,9 +738,135 @@ scene.on_overlap_tile(SpriteKind.player,
         """),
     on_overlap_tile6)
 
+def on_overlap_tile7(sprite422, location422):
+    music.stop_all_sounds()
+    game.splash("DAY 5!")
+    game.splash("The Last Jump!")
+    game.splash("Are you ready?")
+    for value3322 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        tiles.set_tile_at(value3322, assets.tile("""
+            Underwater
+            """))
+    sprites.destroy(coin4)
+    music.play(music.string_playable("E B C5 A B G A F ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile13
+        """),
+    on_overlap_tile7)
+
+def SpawnDoubleJump():
+    global DoubleJump
+    for value422 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        DoubleJump = sprites.create(img("""
+                . . . . . b b b b b b . . . . .
+                . . . b b 9 9 9 9 9 9 b b . . .
+                . . b b 9 9 9 9 9 9 9 9 b b . .
+                . b b 9 d 9 9 9 9 9 9 9 9 b b .
+                . b 9 d 9 9 9 9 9 1 1 1 9 9 b .
+                b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b
+                b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b
+                b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b
+                b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b
+                b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b
+                . b 5 3 3 3 d 9 9 9 9 d d 5 b .
+                . b d 5 3 3 3 3 3 3 3 d 5 b b .
+                . . b d 5 d 3 3 3 3 5 5 b b . .
+                . . . b b 5 5 5 5 5 5 b b . . .
+                . . . . . b b b b b b . . . . .
+                """),
+            SpriteKind.food)
+        tiles.place_on_tile(DoubleJump, value422)
+def SpawnCoin4():
+    global coin4
+    for value432 in tiles.get_tiles_by_type(assets.tile("""
+        myTile12
+        """)):
+        coin4 = sprites.create(img("""
+                . . b b b b . .
+                . b 5 5 5 5 b .
+                b 5 d 3 3 d 5 b
+                b 5 3 5 5 1 5 b
+                c 5 3 5 5 1 d c
+                c d d 1 1 d d c
+                . f d d d d f .
+                . . f f f f . .
+                """),
+            SpriteKind.food)
+        tiles.place_on_tile(coin4, value432)
+        animation.run_image_animation(coin3,
+            [img("""
+                    9 9 b b b b 9 9
+                    9 b 5 5 5 5 b 9
+                    b 5 d 3 3 d 5 b
+                    b 5 3 5 5 1 5 b
+                    c 5 3 5 5 1 d c
+                    c d d 1 1 d d c
+                    9 f d d d d f 9
+                    9 9 f f f f 9 9
+                    """),
+                img("""
+                    9 9 b b b 9 9 9
+                    9 b 5 5 5 b 9 9
+                    b 5 d 3 d 5 b 9
+                    b 5 3 5 1 5 b 9
+                    c 5 3 5 1 d c 9
+                    c 5 d 1 d d c 9
+                    9 f d d d f 9 9
+                    9 9 f f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 b 5 d 1 5 b 9
+                    9 b 5 3 1 5 b 9
+                    9 c 5 3 1 d c 9
+                    9 c 5 1 d d c 9
+                    9 9 f d d f 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 9 b 1 1 b 9 9
+                    9 9 b 5 5 b 9 9
+                    9 9 b d d b 9 9
+                    9 9 c d d c 9 9
+                    9 9 c 3 3 c 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b 9 9 9
+                    9 9 b 5 5 b 9 9
+                    9 b 5 1 d 5 b 9
+                    9 b 5 1 3 5 b 9
+                    9 c d 1 3 5 c 9
+                    9 c d d 1 5 c 9
+                    9 9 f d d f 9 9
+                    9 9 9 f f 9 9 9
+                    """),
+                img("""
+                    9 9 9 b b b 9 9
+                    9 9 b 5 5 5 b 9
+                    9 b 5 d 3 d 5 b
+                    9 b 5 1 5 3 5 b
+                    9 c d 1 5 3 5 c
+                    9 c d d 1 d 5 c
+                    9 9 f d d d f 9
+                    9 9 9 f f f 9 9
+                    """)],
+            150,
+            True)
+        coin4.scale = 1.5
 def SpawnCoin2():
     global Coin2
-    for value42 in tiles.get_tiles_by_type(assets.tile("""
+    for value423 in tiles.get_tiles_by_type(assets.tile("""
         myTile10
         """)):
         Coin2 = sprites.create(img("""
@@ -750,7 +880,7 @@ def SpawnCoin2():
                 . . f f f f . .
                 """),
             SpriteKind.food)
-        tiles.place_on_tile(Coin2, value42)
+        tiles.place_on_tile(Coin2, value423)
         animation.run_image_animation(Coin2,
             [img("""
                     9 9 b b b b 9 9
@@ -815,9 +945,11 @@ def SpawnCoin2():
             150,
             True)
         Coin2.scale = 1.5
+coin4: Sprite = None
 ChoosePowerUp = 0
-Coin1: Sprite = None
 Coin2: Sprite = None
+Coin1: Sprite = None
+DoubleJump: Sprite = None
 coin3: Sprite = None
 Cat: Sprite = None
 Mermaid: Sprite = None
@@ -825,7 +957,6 @@ Explorer: Sprite = None
 musicChoice = ""
 selectedAvatar = ""
 playerName = ""
-SpeedBoost: Sprite = None
 tiles.set_current_tilemap(tilemap("""
     MainMap
     """))
@@ -873,6 +1004,7 @@ tiles.place_on_random_tile(LightBlue, assets.tile("""
 SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
+SpawnDoubleJump()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.ask_for_string("What is your name?")
@@ -907,3 +1039,19 @@ elif selectedAvatar == "Mermaid":
     movement(Mermaid)
 elif selectedAvatar == "Cat":
     movement(Cat)
+
+number_of_jumps = 0
+jump_speed = 0
+
+def on_on_update():
+    global number_of_jumps
+    if Explorer.vy == 0:
+        number_of_jumps = 0
+game.on_update(on_on_update)
+
+def on_a_pressed():
+    global number_of_jumps
+    if Explorer.vy == 0 or number_of_jumps == 1:
+        Explorer.set_velocity(0, jump_speed)
+        number_of_jumps += 1
+controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)

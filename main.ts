@@ -1,4 +1,3 @@
-let list2 = 0
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     game.gameOver(false)
 })
@@ -113,6 +112,9 @@ function movement (character: Sprite) {
         
     })
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite4, location4) {
     music.stopAllSounds()
     game.splash("You have made it to DAY 4!")
@@ -124,159 +126,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite4,
     }
     sprites.destroy(coin3)
     music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
-})
-sprites.onOverlap(SpriteKind.Player, list2, function (sprite22, otherSprite) {
-    animation.runImageAnimation(
-    SpeedBoost,
-    [img`
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
-        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
-        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
-        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
-        9 b b b b b 9 9 1 1 b b 3 9 9 b 
-        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
-        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
-        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
-        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
-        9 b 5 5 b b b b b b 3 9 9 3 9 9 
-        9 b b b b b b b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
-        9 9 9 9 b b b 9 9 9 b b b b 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
-        9 9 9 b b b b b b 9 9 b 9 9 9 9 
-        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
-        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
-        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
-        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
-        9 b 5 d 9 3 3 3 d d b b b b 9 9 
-        b 5 5 5 b b b b b b b 9 9 1 b 9 
-        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
-        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
-        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
-        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `],
-    150,
-    false
-    )
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
-    animation.runImageAnimation(
-    DoubleJump,
-    [img`
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
-        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
-        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
-        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
-        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
-        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
-        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
-        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
-        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
-        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
-        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
-        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
-        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
-        9 9 9 9 9 b b b b b b 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
-        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
-        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
-        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
-        9 b b b b b 9 9 1 1 b b 3 9 9 b 
-        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
-        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
-        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
-        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
-        9 b 5 5 b b b b b b 3 9 9 3 9 9 
-        9 b b b b b b b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
-        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
-        9 9 9 9 b b b 9 9 9 b b b b 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
-        9 9 9 b b b b b b 9 9 b 9 9 9 9 
-        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
-        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
-        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
-        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
-        9 b 5 d 9 3 3 3 d d b b b b 9 9 
-        b 5 5 5 b b b b b b b 9 9 1 b 9 
-        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
-        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
-        `,img`
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
-        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
-        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
-        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-        `],
-    150,
-    false
-    )
-    sprites.destroy(DoubleJump)
 })
 function spawn_mermaid () {
     for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
@@ -723,6 +572,91 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite42
     sprites.destroy(Coin2)
     music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite2, location2) {
+    for (let value42 of tiles.getTilesByType(assets.tile`myTile12`)) {
+        tiles.setTileAt(value42, assets.tile`Underwater`)
+    }
+    animation.runImageAnimation(
+    DoubleJump,
+    [img`
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
+        9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
+        9 b b 9 d 9 9 9 9 9 9 9 9 b b 9 
+        9 b 9 d 9 9 9 9 9 1 1 1 9 9 b 9 
+        b 9 d d 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 d 9 9 9 9 9 9 1 1 1 9 9 9 b 
+        b 9 3 9 9 9 9 9 9 9 9 9 1 9 9 b 
+        b 5 3 d 9 9 9 9 9 9 9 9 9 9 9 b 
+        b 5 3 3 9 9 9 9 9 9 9 9 9 d 9 b 
+        b 5 d 3 3 9 9 9 9 9 9 9 d d 9 b 
+        9 b 5 3 3 3 d 9 9 9 9 d d 5 b 9 
+        9 b d 5 3 3 3 3 3 3 3 d 5 b b 9 
+        9 9 b d 5 d 3 3 3 3 5 5 b b 9 9 
+        9 9 9 b b 5 5 5 5 5 5 b b 9 9 9 
+        9 9 9 9 9 b b b b b b 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 b b 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 9 
+        9 9 b b 9 9 9 b 9 9 b 9 9 9 9 9 
+        9 b 9 1 b 9 9 b b b 9 9 b b b 9 
+        9 b 3 9 b 9 b b b b 9 b 9 9 1 b 
+        9 b b b b b 9 9 1 1 b b 3 9 9 b 
+        9 9 9 9 b 9 d 9 1 1 b b b b b 9 
+        9 9 9 9 b 5 3 9 9 9 b 9 9 9 9 9 
+        9 9 b b b 5 3 3 d 9 b 9 9 9 9 9 
+        9 b 5 1 b b 5 5 9 b b b b 9 9 9 
+        9 b 5 5 b b b b b b 3 9 9 3 9 9 
+        9 b b b b b b b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 1 b 9 b 9 1 1 9 b 9 
+        9 9 9 b 5 5 5 b 9 b 3 9 9 3 b 9 
+        9 9 9 9 b b b 9 9 9 b b b b 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 b b 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 b 9 1 b 9 9 9 9 
+        9 9 9 b b b b b b 9 9 b 9 9 9 9 
+        9 9 b 9 9 d 9 9 1 1 d b b b b 9 
+        9 9 9 b d 9 9 9 1 1 9 9 d 9 1 b 
+        9 9 b 9 d 9 9 9 9 9 9 9 d 9 9 b 
+        9 9 b 9 3 3 9 9 9 9 9 d b b b 9 
+        9 b 5 d 9 3 3 3 d d b b b b 9 9 
+        b 5 5 5 b b b b b b b 9 9 1 b 9 
+        b 5 5 b 9 9 9 9 9 9 b 3 9 9 b 9 
+        9 b b 9 9 9 9 9 9 9 9 b b b 9 9 
+        `,img`
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 9 9 9 1 1 1 9 9 9 
+        9 9 9 1 1 9 9 1 1 9 1 1 1 9 9 9 
+        9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 1 9 9 9 9 
+        9 9 9 9 1 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+        `],
+    150,
+    false
+    )
+    sprites.destroy(DoubleJump)
+    if (Explorer.vy == 0 || number_of_jumps == 1) {
+        let jump_speed = 0
+        Explorer.setVelocity(0, jump_speed)
+        number_of_jumps += 1
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, location3) {
     let PowerSelection = 0
     music.stopAllSounds()
@@ -746,19 +680,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, 
     game.splash("Lets make it to DAY 3!")
     music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite42, location42) {
-    music.stopAllSounds()
-    game.splash("DAY 5!")
-    game.splash("The Last Jump!")
-    game.splash("Are you ready?")
-    for (let value332 of tiles.getTilesByType(assets.tile`myTile12`)) {
-        tiles.setTileAt(value332, assets.tile`Underwater`)
-    }
-    sprites.destroy(coin4)
-    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
-})
 function SpawnDoubleJump () {
-    for (let value42 of tiles.getTilesByType(assets.tile`myTile12`)) {
+    for (let value422 of tiles.getTilesByType(assets.tile`myTile12`)) {
         DoubleJump = sprites.create(img`
             . . . . . b b b b b b . . . . . 
             . . . b b 9 9 9 9 9 9 b b . . . 
@@ -777,11 +700,11 @@ function SpawnDoubleJump () {
             . . . b b 5 5 5 5 5 5 b b . . . 
             . . . . . b b b b b b . . . . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(DoubleJump, value42)
+        tiles.placeOnTile(DoubleJump, value422)
     }
 }
 function SpawnCoin4 () {
-    for (let value43 of tiles.getTilesByType(assets.tile`myTile12`)) {
+    for (let value432 of tiles.getTilesByType(assets.tile`myTile12`)) {
         coin4 = sprites.create(img`
             . . b b b b . . 
             . b 5 5 5 5 b . 
@@ -792,7 +715,7 @@ function SpawnCoin4 () {
             . f d d d d f . 
             . . f f f f . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(coin4, value43)
+        tiles.placeOnTile(coin4, value432)
         animation.runImageAnimation(
         coin3,
         [img`
@@ -856,8 +779,19 @@ function SpawnCoin4 () {
         coin4.scale = 1.5
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite422, location422) {
+    music.stopAllSounds()
+    game.splash("DAY 5!")
+    game.splash("The Last Jump!")
+    game.splash("Are you ready?")
+    for (let value3322 of tiles.getTilesByType(assets.tile`myTile12`)) {
+        tiles.setTileAt(value3322, assets.tile`Underwater`)
+    }
+    sprites.destroy(coin4)
+    music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.LoopingInBackground)
+})
 function SpawnCoin2 () {
-    for (let value42 of tiles.getTilesByType(assets.tile`myTile10`)) {
+    for (let value423 of tiles.getTilesByType(assets.tile`myTile10`)) {
         Coin2 = sprites.create(img`
             . . b b b b . . 
             . b 5 5 5 5 b . 
@@ -868,7 +802,7 @@ function SpawnCoin2 () {
             . f d d d d f . 
             . . f f f f . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(Coin2, value42)
+        tiles.placeOnTile(Coin2, value423)
         animation.runImageAnimation(
         Coin2,
         [img`
@@ -934,9 +868,9 @@ function SpawnCoin2 () {
 }
 let coin4: Sprite = null
 let ChoosePowerUp = 0
+let DoubleJump: Sprite = null
 let Coin2: Sprite = null
 let Coin1: Sprite = null
-let DoubleJump: Sprite = null
 let coin3: Sprite = null
 let Cat: Sprite = null
 let Mermaid: Sprite = null
@@ -944,7 +878,7 @@ let Explorer: Sprite = null
 let musicChoice = ""
 let selectedAvatar = ""
 let playerName = ""
-let SpeedBoost: Sprite = null
+let number_of_jumps = 0
 tiles.setCurrentTilemap(tilemap`MainMap`)
 let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
@@ -964,7 +898,7 @@ let LightBlue = sprites.create(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     `, SpriteKind.Player)
-SpeedBoost = sprites.create(img`
+let SpeedBoost = sprites.create(img`
     9 9 9 9 9 b b b b b b 9 9 9 9 9 
     9 9 9 b b 9 9 9 9 9 9 b b 9 9 9 
     9 9 b b 9 9 9 9 9 9 9 9 b b 9 9 
@@ -987,6 +921,7 @@ SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
 SpawnDoubleJump()
+number_of_jumps = 0
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.askForString("What is your name?")
