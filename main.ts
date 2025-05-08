@@ -102,8 +102,8 @@ function SpawnCoin3 () {
     }
 }
 function movement (character: Sprite) {
-    controller.moveSprite(character, 150, 0)
-    character.ay = 210
+    controller.moveSprite(character, 100, 0)
+    character.ay = 225
     character.setFlag(SpriteFlag.StayInScreen, true)
     controller.A.onEvent(ControllerButtonEvent.Pressed, function on_jump_pressed() {
         if (character.isHittingTile(CollisionDirection.Bottom)) {
@@ -665,13 +665,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, 
     ChoosePowerUp = game.askForNumber("Great " + playerName + ". Choose 1. 2x Speed, 2. 2x Jump", 1)
     sprites.destroy(Coin1)
     if (PowerSelection == 1) {
-        controller.moveSprite(Explorer, 140, 0)
-        controller.moveSprite(Mermaid, 140, 0)
-        controller.moveSprite(Cat, 140, 0)
+        controller.moveSprite(Explorer, 200, 0)
+        controller.moveSprite(Mermaid, 200, 0)
+        controller.moveSprite(Cat, 200, 0)
     } else if (PowerSelection == 2) {
-        Explorer.ay = 100
-        Mermaid.ay = 100
-        Cat.ay = 100
+        Explorer.ay = 112.5
+        Mermaid.ay = 112.5
+        Cat.ay = 112.5
     }
     sprites.destroy(Coin1)
     for (let value3 of tiles.getTilesByType(assets.tile`myTile9`)) {
@@ -679,6 +679,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite3, 
     }
     game.splash("Lets make it to DAY 3!")
     music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite23, location22) {
+    game.gameOver(false)
 })
 function SpawnDoubleJump () {
     for (let value422 of tiles.getTilesByType(assets.tile`myTile12`)) {
@@ -705,7 +708,7 @@ function SpawnDoubleJump () {
     }
 }
 function SpawnCoin4 () {
-    for (let value432 of tiles.getTilesByType(assets.tile`myTile12`)) {
+    for (let value432 of tiles.getTilesByType(assets.tile`myTile13`)) {
         coin4 = sprites.create(img`
             . . b b b b . . 
             . b 5 5 5 5 b . 
@@ -785,7 +788,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite42
     game.splash("DAY 5!")
     game.splash("The Last Jump!")
     game.splash("Are you ready?")
-    for (let value3322 of tiles.getTilesByType(assets.tile`myTile12`)) {
+    for (let value3322 of tiles.getTilesByType(assets.tile`myTile13`)) {
         tiles.setTileAt(value3322, assets.tile`Underwater`)
     }
     sprites.destroy(coin4)
@@ -867,6 +870,13 @@ function SpawnCoin2 () {
         Coin2.scale = 1.5
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite4, location4) {
+    music.stopAllSounds()
+    game.splash("You have made it to the end!")
+    game.splash("Congratulations!")
+    music.play(music.stringPlayable("C5 B A G F E D C ", 480), music.PlaybackMode.LoopingInBackground)
+    game.gameOver(true)
+})
 let coin4: Sprite = null
 let ChoosePowerUp = 0
 let PowerUpAsk = 0
@@ -922,6 +932,7 @@ tiles.placeOnRandomTile(LightBlue, assets.tile`myTile`)
 SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
+SpawnCoin4()
 SpawnDoubleJump()
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
@@ -939,6 +950,8 @@ if (avatarChoice == 1) {
     spawn_cat()
 }
 let musicChoiceNum = game.askForNumber("Okay " + playerName + ". Music: 1. Sitka 2. Paris 3. Tokyo", 1)
+game.splash("You have 20 seconds to reach the end.")
+game.splash("Ready?")
 if (musicChoiceNum == 1) {
     musicChoice = "Sitka"
     music.play(music.stringPlayable("C5 B A G A B C5 - ", 120), music.PlaybackMode.LoopingInBackground)
@@ -956,4 +969,4 @@ if (selectedAvatar == "Explorer") {
 } else if (selectedAvatar == "Cat") {
     movement(Cat)
 }
-info.startCountdown(30)
+info.startCountdown(20)

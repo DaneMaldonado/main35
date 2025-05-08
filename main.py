@@ -616,6 +616,7 @@ scene.on_overlap_tile(SpriteKind.player,
 
 def on_overlap_tile5(sprite2, location2):
     global PowerUpAsk
+    music.stop_all_sounds()
     for value42 in tiles.get_tiles_by_type(assets.tile("""
         myTile12
         """)):
@@ -698,7 +699,13 @@ def on_overlap_tile5(sprite2, location2):
         150,
         False)
     sprites.destroy(DoubleJump)
-    PowerUpAsk = game.ask_for_string("Claim 10 seconds back! Select 1")
+    PowerUpAsk = game.ask_for_number("Claim 10 seconds back! Select 1 Quick!", 1)
+    if PowerUpAsk == 1:
+        info.change_countdown_by(10)
+    else:
+        info.change_countdown_by(-10)
+    music.play(music.string_playable("A F E F D G E F ", 120),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
 scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         myTile12
@@ -763,10 +770,11 @@ def SpawnDoubleJump():
                 """),
             SpriteKind.food)
         tiles.place_on_tile(DoubleJump, value422)
+        DoubleJump.scale = 0.75
 def SpawnCoin4():
     global coin4
     for value432 in tiles.get_tiles_by_type(assets.tile("""
-        myTile12
+        myTile13
         """)):
         coin4 = sprites.create(img("""
                 . . b b b b . .
@@ -851,7 +859,7 @@ def on_overlap_tile7(sprite422, location422):
     game.splash("The Last Jump!")
     game.splash("Are you ready?")
     for value3322 in tiles.get_tiles_by_type(assets.tile("""
-        myTile12
+        myTile13
         """)):
         tiles.set_tile_at(value3322, assets.tile("""
             Underwater
@@ -946,9 +954,23 @@ def SpawnCoin2():
             150,
             True)
         Coin2.scale = 1.5
+
+def on_overlap_tile8(sprite43, location43):
+    music.stop_all_sounds()
+    game.splash("You have made it to the end!")
+    game.splash("Congratulations!")
+    music.play(music.string_playable("C5 B A G F E D C ", 480),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
+    game.game_over(True)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        myTile8
+        """),
+    on_overlap_tile8)
+
 coin4: Sprite = None
 ChoosePowerUp = 0
-PowerUpAsk = ""
+PowerUpAsk = 0
 DoubleJump: Sprite = None
 Coin2: Sprite = None
 Coin1: Sprite = None
@@ -959,6 +981,7 @@ Explorer: Sprite = None
 musicChoice = ""
 selectedAvatar = ""
 playerName = ""
+number_of_jumps = 0
 tiles.set_current_tilemap(tilemap("""
     MainMap
     """))
@@ -1006,8 +1029,8 @@ tiles.place_on_random_tile(LightBlue, assets.tile("""
 SpawnCoin1()
 SpawnCoin2()
 SpawnCoin3()
+SpawnCoin4()
 SpawnDoubleJump()
-number_of_jumps = 0
 game.splash("Welcome to Underwater Trail!")
 game.splash("You are stuck underwater and need to escape by getting past obstacles in the clear water to find your way out.")
 playerName = game.ask_for_string("What is your name?")
@@ -1024,6 +1047,8 @@ else:
     spawn_cat()
 musicChoiceNum = game.ask_for_number("Okay " + playerName + ". Music: 1. Sitka 2. Paris 3. Tokyo",
     1)
+game.splash("You have 20 seconds to reach the end.")
+game.splash("Ready?")
 if musicChoiceNum == 1:
     musicChoice = "Sitka"
     music.play(music.string_playable("C5 B A G A B C5 - ", 120),
@@ -1042,3 +1067,4 @@ elif selectedAvatar == "Mermaid":
     movement(Mermaid)
 elif selectedAvatar == "Cat":
     movement(Cat)
+info.start_countdown(20)
